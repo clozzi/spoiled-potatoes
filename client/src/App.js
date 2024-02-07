@@ -1,5 +1,6 @@
 // import './App.css';
 import { useEffect, useState } from "react";
+import NavBar from "./components/NavBar";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div>
+      <header><NavBar /></header>
       <p>Client Home</p>
       <ul>{medias.map((media) => (
         <li>{media.title}</li>
