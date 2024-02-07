@@ -1,6 +1,6 @@
 
 
-from random import randint, choice as rc
+# from random import randint, choice as rc
 
 from faker import Faker
 
@@ -10,6 +10,7 @@ from models import db, Media
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
+
         print('Deleting medias...')
         Media.query.delete()
 

@@ -14,7 +14,7 @@ from config import db
 #     reviews = db.relationship('Review', back_populates='')
     
 
-class Media(db.Model):
+class Media(db.Model, SerializerMixin):
     __tablename__ = 'medias'
 
     id = db.Column(db.Integer, primary_key=True)
