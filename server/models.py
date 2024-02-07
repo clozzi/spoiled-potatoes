@@ -15,6 +15,8 @@ from config import db
     
 
 class Media(db.Model):
+    __tablename__ = 'medias'
+
     id = db.Column(db.Integer, primary_key=True)
     media_type = db.Column(db.String)
     streaming_platform = db.Column(db.String)
@@ -44,6 +46,9 @@ class Media(db.Model):
         return title
 
 #     reviews = db.relationship('Review', back_populates='')
+    
+    def __repr__(self):
+        return f'<Media {self.title}, Type: {self.media_type}, Platform: {self.streaming_platform}'
     
 
 # class Review(db.Model):
