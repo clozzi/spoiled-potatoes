@@ -12,11 +12,6 @@ code {
     monospace;
 }
 
-/* ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-} */
-
 ul {
   display: flex;
   flex-direction: row;
