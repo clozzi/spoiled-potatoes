@@ -5,8 +5,6 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 from config import db
 
-# what to do what to do
-# insert models here
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

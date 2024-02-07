@@ -1,9 +1,10 @@
 
 
-from flask import request
-from flask_restful import Resource
+# from flask import request
+# from flask_restful import Resource
 
-from config import app, db, api
+from config import app
+# , db, api
 
 # model imports
 
