@@ -1,6 +1,7 @@
 // import './App.css';
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
+import { Outlet } from "react-router-dom";
 
 function App() {
 
@@ -18,10 +19,7 @@ function App() {
   return (
     <div>
       <header><NavBar /></header>
-      <p>Client Home</p>
-      <ul>{medias.map((media) => (
-        <li>{media.title}</li>
-      ))}</ul>
+      <Outlet context={medias} />
     </div>
   )
 }
