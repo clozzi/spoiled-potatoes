@@ -6,10 +6,7 @@ function Home() {
 
   return (
       <main>
-        <h1>Home!</h1>
-        {/* <ul>{medias.map((media) => (
-            <li>{media.title}</li>
-        ))}</ul> */}
+        <h1>Welcome to Spoiled Potatoes!</h1>
         <ul>{medias.map((media) => (
             <MediaCard key={media.id} media={media} />
         ))}</ul>
