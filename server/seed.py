@@ -5,17 +5,18 @@
 from faker import Faker
 
 from app import app
-from models import db, Media
+from models import db, Media, User
 
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
 
-        print('Deleting medias...')
+        print('Deleting...')
         Media.query.delete()
+        User.query.delete()
 
-        print('Creating medias...')
         medias = []
+        users = []
 
         for i in range(15):
             media = Media(
@@ -27,6 +28,17 @@ if __name__ == '__main__':
 
             medias.append(media)
 
+        print('Creating Medias...')
         db.session.add_all(medias)
+
+        for i in range(5):
+            user = User(
+                username = fake.unique.first_name()
+            )
+
+            users.append(user)
+        
+        print('Creating Users...')
+        db.session.add_all(users)
         db.session.commit()
-        print('Complete')
+        print('Seed Complete')

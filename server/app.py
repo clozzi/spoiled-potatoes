@@ -1,10 +1,11 @@
 
-from flask import request, make_response
+from flask import request, session, make_response
 from flask_restful import Resource
+from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
 
-from models import Media
+from models import Media, User
 
 @app.route('/')
 def index():
@@ -20,6 +21,26 @@ class Home(Resource):
 
         return medias, 200
     
+
+class Signup(Resource):
+
+    def post(self):
+        
+        request_json = request.get_json()
+        username = request_json.get('username')
+        new_user = User(
+            username=username
+        )
+
+        try: 
+            db.session.add(new_user)
+            db.session.commit()
+            session['user_id'] = new_user.id
+            return new_user.to_dict(), 201
+        
+        except IntegrityError:
+            return {'error': '422 Unprocessable Entity'}, 422
+    
 class Login(Resource):
 
     def get(self):
@@ -29,8 +50,9 @@ class Login(Resource):
         pass
 
 
-api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Home, '/home', endpoint='home')
+api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(Login, '/login', endpoint='login')
 
 
 if __name__ == '__main__':
