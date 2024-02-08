@@ -19,9 +19,19 @@ class Home(Resource):
             medias.append(media.to_dict())
 
         return medias, 200
+    
+class Login(Resource):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
 
 
+api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Home, '/home', endpoint='home')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
