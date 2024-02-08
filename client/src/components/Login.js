@@ -17,8 +17,10 @@ function Login({ onLogin }) {
     }
     return (
         <form onSubmit={handleSubmit}>
+            <h3>Login with Username</h3>
             <input
                 type="text"
+                id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />

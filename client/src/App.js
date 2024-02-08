@@ -1,25 +1,28 @@
 // import './App.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar from "./components/NavBar";
 import { Outlet } from "react-router-dom";
 
 function App() {
+  const [user, setUser] = useState(null)
 
-  const [medias, setMedias] = useState([])
-
-  useEffect(() => {
-    fetch("/home")
-      .then((r) => r.json())
-      .then((medias) => setMedias(medias))
+  // useEffect(() => {
+  //   fetch("/check_session")
+  //     .then((r) => r.json())
+  //     .then((user) => setUser(user))
       
-  }, [])
+  // }, [])
 
-  console.log(medias)
+  function handleLogin(user) {
+    setUser(user)
+  }
+
+  console.log(user)
 
   return (
     <div>
       <header><NavBar /></header>
-      <Outlet context={medias} />
+      <Outlet context={user}/>
     </div>
   )
 }
