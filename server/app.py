@@ -22,24 +22,24 @@ class Home(Resource):
         return medias, 200
     
 
-# class Signup(Resource):
+class Signup(Resource):
 
-#     def post(self):
+    def post(self):
         
-#         request_json = request.get_json()
-#         username = request_json.get('username')
-#         new_user = User(
-#             username=username
-#         )
+        request_json = request.get_json()
+        username = request_json.get('username')
+        new_user = User(
+            username=username
+        )
 
-#         try: 
-#             db.session.add(new_user)
-#             db.session.commit()
-#             session['user_id'] = new_user.id
-#             return new_user.to_dict(), 201
+        try: 
+            db.session.add(new_user)
+            db.session.commit()
+            session['user_id'] = new_user.id
+            return jsonify({'id': new_user.id, 'username': new_user.username}), 201
         
-#         except IntegrityError:
-#             return {'error': '422 Unprocessable Entity'}, 422
+        except IntegrityError:
+            return {'error': '422 Unprocessable Entity'}, 422
     
 class Login(Resource):
 
@@ -78,7 +78,7 @@ class Logout(Resource):
 
 
 api.add_resource(Home, '/home', endpoint='home')
-# api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Logout, '/logout', endpoint='logout')
