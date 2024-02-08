@@ -1,24 +1,49 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import * as yup from "yup";
 
 function Signup() {
+    const [displayText, setDisplayText] = useState("Sign Up Now!")
+
+    const formSchema = yup.object().shape({
+        username: yup.string().required("Must enter username").max(20)
+    })
+
+    const formik = useFormik({
+        initialValues: {username: ""},
+        validationSchema: formSchema,
+        onSubmit: (values) => {
+            fetch("/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values, null, 2),
+            }).then((res) => {
+                if (res.status === 201) {
+                    setDisplayText("Welcome!")
+                }
+            })
+        }
+    })
 
 
     return (
         <div>
-            <h1>Signup</h1>
-            <Formik>
-                {({ isSubmitting }) => {
-                    <Form>
-                        <Field
-                            type="text"
-                            name="username"
-                            placeholder="Enter your username"
-                        />
-                        <ErrorMessage name='username' component="div" />
-                        <button type='submit' disabled={isSubmitting}>Submit</button>
-                    </Form>
-                }}
-            </Formik>
+            <h1>{displayText}</h1>
+            <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
+                <label htmlFor='username'>Username</label>
+                <br />
+                <input
+                    id='username'
+                    name='username'
+                    placeholder='Enter Username...'
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
+                />
+                <p style={{ color: "red" }}>{formik.errors.username}</p>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     )
 }

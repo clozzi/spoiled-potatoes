@@ -14,25 +14,23 @@ function NavBar({ user, onLogout }) {
         <nav>
             <ul>
                 <div>
-                   <NavLink to="/" className="nav-link">
-                    Home
-                    </NavLink> 
+                   <NavLink to="/" className="nav-link">Home</NavLink> 
+                </div>
+                <div>
+                    <NavLink to="/signup" className="nav-link">Signup</NavLink>
                 </div>
                 {user ? (
                     <>
                         <div>
                             <p>Welcome, {user.username}</p>
-                            
                         </div>
                         <div>
                             <button onClick={handleLogout}>Logout</button>
                         </div>
                     </>
                 ) : (
-                    <div>
-                   <NavLink to="/login" className="nav-link">
-                    Login
-                    </NavLink> 
+                <div>
+                   <NavLink to="/login" className="nav-link">Login</NavLink> 
                 </div>
                 )} 
             </ul>
