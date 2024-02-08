@@ -27,9 +27,13 @@ function App() {
     setUser(user)
   }
 
+  function handleLogout() {
+    setUser(null)
+  }
+
   return (
     <>
-      <NavBar user={user}/>
+      <NavBar user={user} onLogout={handleLogout}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />

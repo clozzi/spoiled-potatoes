@@ -62,15 +62,26 @@ class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
-            return user.to_dict()
+            # make_response, jsonify, to_dict
+            return jsonify({
+                "id": user.id,
+                "username": user.username
+            })
         else:
             return {'message': '401: Not Authorized'}, 401
+
+class Logout(Resource):
+
+    def delete(self):
+        session['user_id'] = None
+        return {'message': '204 No Content'}, 204
 
 
 api.add_resource(Home, '/home', endpoint='home')
 # api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
+api.add_resource(Logout, '/logout', endpoint='logout')
 
 
 if __name__ == '__main__':
