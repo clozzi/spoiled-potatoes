@@ -4,9 +4,18 @@ import "./NavBar.css";
 function NavBar() {
     return (
         <nav>
-            <NavLink to="/" className="nav-link">
-                Home
-            </NavLink>
+            <ul>
+                <div>
+                   <NavLink to="/" className="nav-link">
+                    Home
+                    </NavLink> 
+                </div>
+                <div>
+                   <NavLink to="/login" className="nav-link">
+                    Login
+                    </NavLink> 
+                </div>
+            </ul>
         </nav>
     )
 }

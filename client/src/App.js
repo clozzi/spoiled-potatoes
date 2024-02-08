@@ -1,17 +1,19 @@
 // import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
-import { Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import ErrorPage from './pages/ErrorPage';
+import Home from './pages/Home';
+import Login from "./components/Login";
 
 function App() {
   const [user, setUser] = useState(null)
 
-  // useEffect(() => {
-  //   fetch("/check_session")
-  //     .then((r) => r.json())
-  //     .then((user) => setUser(user))
-      
-  // }, [])
+  useEffect(() => {
+    fetch("/check_session")
+      .then((r) => r.json())
+      .then((user) => setUser(user))
+  }, [])
 
   function handleLogin(user) {
     setUser(user)
@@ -20,10 +22,14 @@ function App() {
   console.log(user)
 
   return (
-    <div>
-      <header><NavBar /></header>
-      <Outlet context={user}/>
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login onLogin={handleLogin}/>} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </>
   )
 }
 
