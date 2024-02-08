@@ -11,9 +11,12 @@ class User(db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.Integer, unique=True)
+    username = db.Column(db.String, unique=True)
 
 #     reviews = db.relationship('Review', back_populates='')
+    
+    def __repr__(self):
+        return f'<User {self.username}>'
     
 
 class Media(db.Model, SerializerMixin):

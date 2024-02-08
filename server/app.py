@@ -1,5 +1,5 @@
 
-from flask import request, session, make_response
+from flask import request, session, make_response, jsonify
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
@@ -43,16 +43,17 @@ class Home(Resource):
     
 class Login(Resource):
 
-    def get(self):
-        pass
-
     def post(self):
-        user = User.query.filter(
-            User.username == request.get_json()['username']
-        ).first()
-
-        session['user_id'] = user.id
-        return user.to_dict()
+        username = request.get_json()['username']
+        user = User.query.filter(User.username == username).first()
+        if user:
+            session['user_id'] = user.id
+            print(user)
+            return jsonify({
+                "id": user.id,
+                "username": user.username
+            })
+        return {'error': 'User not registered'}
 
 
 api.add_resource(Home, '/home', endpoint='home')
