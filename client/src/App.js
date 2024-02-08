@@ -9,6 +9,14 @@ import Login from "./components/Login";
 function App() {
   const [user, setUser] = useState(null)
 
+  useEffect(() => {
+    fetch("/check_session").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user))
+      }
+    })
+  }, [])
+
   // useEffect(() => {
   //   fetch("/check_session")
   //     .then((r) => r.json())
@@ -21,7 +29,7 @@ function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar user={user}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />

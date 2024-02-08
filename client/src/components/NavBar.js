@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
-function NavBar() {
+function NavBar({ user }) {
     return (
         <nav>
             <ul>
@@ -10,11 +10,17 @@ function NavBar() {
                     Home
                     </NavLink> 
                 </div>
-                <div>
+                {user ? (
+                    <div>
+                        <p>Welcome, {user.username}</p>
+                    </div>
+                ) : (
+                    <div>
                    <NavLink to="/login" className="nav-link">
                     Login
                     </NavLink> 
                 </div>
+                )} 
             </ul>
         </nav>
     )
