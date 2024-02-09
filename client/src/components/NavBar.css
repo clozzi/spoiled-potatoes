@@ -14,3 +14,28 @@
 .active {
     color: green;
 }
+
+.greeting {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 0 6px 6px;
+    background: burlywood;
+    text-decoration: none;
+    text-align: center;
+    font-size: min(10vw, 15px) ;
+    color: black;
+}
+
+.logoutButton {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 60px;
+    padding: 5px;
+    margin: 0 6px 6px;
+    background: burlywood;
+    text-decoration: none;
+    text-align: center;
+    font-size: min(10vw, 15px) ;
+    color: black;
+}

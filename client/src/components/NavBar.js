@@ -22,10 +22,10 @@ function NavBar({ user, onLogout }) {
                 {user ? (
                     <>
                         <div>
-                            <p>Welcome, {user.username}</p>
+                            <p className="greeting">Welcome back! You are logged in as: {user.username}</p>
                         </div>
                         <div>
-                            <button onClick={handleLogout}>Logout</button>
+                            <button className="logoutButton" onClick={handleLogout}>Logout</button>
                         </div>
                     </>
                 ) : (
