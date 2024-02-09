@@ -19,7 +19,7 @@ function Home() {
         <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
         
         <ul>{medias.map((media) => (
-          <div className="mediaCard" key={media.id}>
+          <div className="medias" key={media.id}>
             <img src={media.image_url} alt="media" width="100" height="100"/>
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>

@@ -22,3 +22,9 @@ ul {
 h1 {
   text-align: center;
 }
+
+.medias {
+  border-style: groove;
+  padding: 15px;
+  text-align: center;
+}
