@@ -31,7 +31,7 @@ function App() {
       <NavBar user={user} onLogout={handleLogout}/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from "yup";
 
-function Signup() {
+function Signup({ onLogin }) {
     const [displayText, setDisplayText] = useState("Sign Up Now!")
 
     const formSchema = yup.object().shape({
@@ -12,7 +12,7 @@ function Signup() {
     const formik = useFormik({
         initialValues: {username: ""},
         validationSchema: formSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, {resetForm}) => {
             fetch("/signup", {
                 method: "POST",
                 headers: {
@@ -21,7 +21,9 @@ function Signup() {
                 body: JSON.stringify(values, null, 2),
             }).then((res) => {
                 if (res.status === 201) {
-                    setDisplayText("Welcome!")
+                    setDisplayText("Welcome to Spoiled Potatoes " + values.username + "!")
+                    onLogin(values)
+                    resetForm({ values: ''})
                 }
             })
         }
