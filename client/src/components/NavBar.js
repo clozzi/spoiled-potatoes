@@ -27,6 +27,9 @@ function NavBar({ user, onLogout }) {
                         <div>
                             <button className="logoutButton" onClick={handleLogout}>Logout</button>
                         </div>
+                        <div>
+                            <NavLink to="/create" className="nav-link">Create New Media</NavLink>
+                        </div>
                     </>
                 ) : (
                 <div>
