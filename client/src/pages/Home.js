@@ -1,5 +1,6 @@
 // import MediaCard from "../components/MediaCard";
 import { useState, useEffect } from "react";
+import potato from '../images/potato.jpg'
 
 function Home() {
   const [medias, setMedias] = useState([])
@@ -14,13 +15,15 @@ function Home() {
 
   return (
       <main>
-        <h1>Welcome to Spoiled Potatoes!</h1>
+        
+        <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
+        
         <ul>{medias.map((media) => (
           <div className="mediaCard" key={media.id}>
-            <img src={media.image_url} alt="media" width="50" height="50"/>
-            <h1>{media.title}</h1>
-            <h3>{media.media_type}</h3>
-            <h3>Streaming on: {media.streaming_platform}</h3>
+            <img src={media.image_url} alt="media" width="100" height="100"/>
+            <h3>{media.title}</h3>
+            <h5>{media.media_type}</h5>
+            <h5>Streaming on: {media.streaming_platform}</h5>
           </div>
         ))}</ul>
       </main>

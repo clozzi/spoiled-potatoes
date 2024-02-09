@@ -7,9 +7,17 @@ from config import app, db, api
 
 from models import Media, User
 
+# KeyError: 'user_id' on :5555
+@app.before_request
+def check_if_logged_in():
+    allowed = ['home', 'signup', 'login', 'check_session']
+    if request.endpoint not in allowed and not session['user_id']:
+        return {'error': 'Unauthorized'}, 401
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
+
 
 class Home(Resource):
 
@@ -48,7 +56,6 @@ class Login(Resource):
         user = User.query.filter(User.username == username).first()
         if user:
             session['user_id'] = user.id
-            print(user)
             # make_response, jsonify, to_dict
             return jsonify({
                 "id": user.id,
@@ -56,7 +63,7 @@ class Login(Resource):
             })
         return {'error': 'User not registered'}, 400
     
-
+# fix [...]
 class CheckSession(Resource):
 
     def get(self):
