@@ -23,7 +23,7 @@ if __name__ == '__main__':
                 media_type = 'Movie',
                 streaming_platform = 'HBO',
                 title = fake.unique.name(),
-                image_url = fake.url(),
+                image_url = 'https://cdn.pixabay.com/photo/2017/06/28/14/57/fence-2450922_640.png',
             )
 
             medias.append(media)

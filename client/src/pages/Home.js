@@ -17,7 +17,7 @@ function Home() {
         <h1>Welcome to Spoiled Potatoes!</h1>
         <ul>{medias.map((media) => (
           <div className="mediaCard" key={media.id}>
-            <img src={media.image_url} alt="media"/>
+            <img src={media.image_url} alt="media" width="50" height="50"/>
             <h1>{media.title}</h1>
             <h3>{media.media_type}</h3>
             <h3>Streaming on: {media.streaming_platform}</h3>
