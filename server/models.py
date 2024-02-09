@@ -41,7 +41,7 @@ class Media(db.Model, SerializerMixin):
         platforms = ['HBO', 'Max', 'Hulu', 'Netflix', 'Prime', 'Peacock']
 
         if platform not in platforms:
-            raise ValueError('Must be one of the big 6')
+            raise ValueError('Must be one of the big 5')
         return platform
     
     @validates('title')

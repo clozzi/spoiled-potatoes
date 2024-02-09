@@ -6,7 +6,7 @@ function Home() {
   const [medias, setMedias] = useState([])
 
   useEffect(() => {
-    fetch("/home")
+    fetch("/medias")
       .then((r) => r.json())
       .then((medias) => setMedias(medias))
       
