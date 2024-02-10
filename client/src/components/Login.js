@@ -15,12 +15,15 @@ function Login({ onLogin }) {
             },
             body: JSON.stringify({ username }),
         })
-            .then((r) => r.json())
-            .then((user) => 
-                onLogin(user),
+            .then((r) => {
+            if (r.status === 200) {
+                onLogin(username)
                 navigate('/')
-                )
+            }
+        })
     }
+                
+    
     return (
         <form onSubmit={handleSubmit}>
             <h3>Login with Username</h3>

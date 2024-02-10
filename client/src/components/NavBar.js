@@ -1,12 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 function NavBar({ user, onLogout }) {
 
+    const navigate = useNavigate()
+
     function handleLogout() {
         fetch("/logout", {
             method: "DELETE",
-        }).then(() => onLogout())
+        }).then(() => 
+            onLogout(),
+            navigate('/')
+            )
         }
 
 

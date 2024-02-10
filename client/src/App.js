@@ -1,4 +1,3 @@
-// import './App.css';
 import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
@@ -19,8 +18,8 @@ function App() {
     })
   }, [])
 
-  function handleLogin(user) {
-    setUser(user)
+  function handleLogin(username) {
+    setUser(username)
   }
 
   function handleLogout() {
