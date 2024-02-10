@@ -10,7 +10,7 @@ from models import Media, User
 # KeyError: 'user_id' on :5555
 @app.before_request
 def check_if_logged_in():
-    allowed = ['medias', 'signup', 'login', 'check_session']
+    allowed = ['medias', 'medias/:id', 'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session['user_id']:
         return {'error': 'Unauthorized'}, 401
 
@@ -52,6 +52,16 @@ class Medias(Resource):
         
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
+        
+
+class MediaById(Resource):
+
+    def get(self, id):
+        media = Media.query.filter(Media.id == id).first()
+
+        if media:
+            return media.to_dict(), 200
+        return {'error': '404 Resource not found'}, 404
     
 
 class Signup(Resource):
@@ -112,6 +122,7 @@ class Logout(Resource):
 
 
 api.add_resource(Medias, '/medias', endpoint='medias')
+api.add_resource(MediaById, '/medias/<int:id>', endpoint='medias/:id')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')

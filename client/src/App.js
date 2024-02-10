@@ -35,7 +35,7 @@ function App() {
         <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/create" element={<CreateMedia />} />
-        <Route path="/search_media" element={<SearchMedia />} />
+        <Route path="/medias/:id" element={<SearchMedia />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
