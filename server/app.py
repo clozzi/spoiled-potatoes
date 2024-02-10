@@ -27,7 +27,7 @@ class Medias(Resource):
         for media in Media.query.all():
             medias.append(media.to_dict())
 
-        return medias, 200
+        return make_response(jsonify(medias), 200)
     
     def post(self):
 
@@ -48,7 +48,7 @@ class Medias(Resource):
             db.session.add(new_media)
             db.session.commit()
 
-            return new_media.to_dict(), 201
+            return make_response(new_media.to_dict()), 201
         
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422

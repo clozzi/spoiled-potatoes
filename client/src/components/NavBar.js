@@ -41,6 +41,9 @@ function NavBar({ user, onLogout }) {
                    <NavLink to="/login" className="nav-link">Login</NavLink> 
                 </div>
                 )} 
+                <div>
+                    <NavLink to="/search_media" className="nav-link">Search for Media</NavLink>
+                </div>
             </ul>
         </nav>
     )
