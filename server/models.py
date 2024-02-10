@@ -7,11 +7,6 @@ from sqlalchemy.orm import validates
 
 from config import db
 
-# user_medias = db.Table(
-#     'user_medias',
-#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-#     db.Column('media_id', db.Integer, db.ForeignKey('medias.id'), primary_key=True)
-# )
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -20,7 +15,6 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True)
 
     reviews = db.relationship('Review', back_populates='user')
-    # medias = db.relationship('Media', back_populates='users')
     
     def __repr__(self):
         return f'<User {self.username}>'
@@ -36,7 +30,6 @@ class Media(db.Model, SerializerMixin):
     image_url = db.Column(db.String)
 
     reviews = db.relationship('Review', back_populates='media')
-    # users = db.relationship('User', back_populates='medias')
 
 
     @validates('media_type')
