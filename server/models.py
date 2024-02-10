@@ -15,6 +15,8 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True)
 
     reviews = db.relationship('Review', back_populates='user')
+
+    serialize_rules = ('-reviews.user',)
     
     def __repr__(self):
         return f'<User {self.username}>'
@@ -30,6 +32,8 @@ class Media(db.Model, SerializerMixin):
     image_url = db.Column(db.String)
 
     reviews = db.relationship('Review', back_populates='media')
+
+    serialize_rules = ('-reviews.media',)
 
 
     @validates('media_type')
@@ -71,6 +75,8 @@ class Review(db.Model, SerializerMixin):
 
     user = db.relationship('User', back_populates="reviews")
     media = db.relationship('Media', back_populates="reviews")
+
+    serialize_rules = ('-user.reviews', '-media.reviews',)
 
     @validates('rating')
     def validate_rating(self, key, rating):
