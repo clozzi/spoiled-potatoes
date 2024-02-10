@@ -1,11 +1,10 @@
 
 
-# from random import randint, choice as rc
-
 from faker import Faker
+from random import randint, choice as rc
 
 from app import app
-from models import db, Media, User
+from models import db, Media, User, Review
 
 if __name__ == '__main__':
     fake = Faker()
@@ -14,9 +13,11 @@ if __name__ == '__main__':
         print('Deleting...')
         Media.query.delete()
         User.query.delete()
+        Review.query.delete()
 
         medias = []
         users = []
+        reviews = []
 
         for i in range(15):
             media = Media(
@@ -40,5 +41,19 @@ if __name__ == '__main__':
         
         print('Creating Users...')
         db.session.add_all(users)
+
+        for i in range(20):
+            review = Review(
+                rating=randint(1,10),
+                comment=fake.sentence()
+            )
+            review.user = rc(users)
+            review.media = rc(medias)
+
+            reviews.append(review)
+        
+        print('Creating Reviews...')
+        db.session.add_all(reviews)
+
         db.session.commit()
         print('Seed Complete')

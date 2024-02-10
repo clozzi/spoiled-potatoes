@@ -4,16 +4,23 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 
+
 from config import db
 
+# user_medias = db.Table(
+#     'user_medias',
+#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+#     db.Column('media_id', db.Integer, db.ForeignKey('medias.id'), primary_key=True)
+# )
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
 
-#     reviews = db.relationship('Review', back_populates='')
+    reviews = db.relationship('Review', back_populates='user')
+    # medias = db.relationship('Media', back_populates='users')
     
     def __repr__(self):
         return f'<User {self.username}>'
@@ -27,6 +34,10 @@ class Media(db.Model, SerializerMixin):
     streaming_platform = db.Column(db.String)
     title = db.Column(db.String)
     image_url = db.Column(db.String)
+
+    reviews = db.relationship('Review', back_populates='media')
+    # users = db.relationship('User', back_populates='medias')
+
 
     @validates('media_type')
     def validate_type(self, key, media_type):
@@ -50,18 +61,29 @@ class Media(db.Model, SerializerMixin):
             raise ValueError('Incorrect title length')
         return title
 
-#     reviews = db.relationship('Review', back_populates='')
     
     def __repr__(self):
         return f'<Media {self.title}, Type: {self.media_type}, Platform: {self.streaming_platform}'
     
 
-# class Review(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     rating = db.Column(db.Integer)
-#     comment = db.Column(db.Integer)
+class Review(db.Model, SerializerMixin):
+    __tablename__ = 'reviews'
 
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     media_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    rating = db.Column(db.Integer)
+    comment = db.Column(db.String)
 
-    # relationships?
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    media_id = db.Column(db.Integer, db.ForeignKey('medias.id'))
+
+    user = db.relationship('User', back_populates="reviews")
+    media = db.relationship('Media', back_populates="reviews")
+
+    @validates('rating')
+    def validate_rating(self, key, rating):
+        if not (0 <= rating <= 10):
+            raise ValueError('Invalid rating')
+        return rating
+
+    def __repr__(self):
+        return f'<Review {self.id}: {self.rating} {self.comment}>'
