@@ -51,7 +51,6 @@ function CreateReview() {
                         value={formik.values.comment}
                     />
                 </div>
-                <button type="reset">Reset Form</button>
                 <button type="submit">Submit New Review</button>
             </form>
         </div>

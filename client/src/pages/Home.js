@@ -9,7 +9,6 @@ function Home() {
     fetch("/medias")
       .then((r) => r.json())
       .then((medias) => setMedias(medias))
-      
   }, [])
 
 

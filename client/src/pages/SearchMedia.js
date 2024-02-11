@@ -1,23 +1,54 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
 function SearchMedia() {
     const [titleInput, setTitleInput] = useState("")
-    // const [results, setResults] = useState([])
+    const [medias, setMedias] = useState([])
+    const [searchResults, setSearchResults] = useState([])
+    const [displayText, setDisplayText] = useState("")
 
-    // function handleSubmit(e) {
-    //     e.preventDefault()
-    //     fetch(`/medias/${id}`)
-    //         .then((r) => r.json())
-    //         .then((results) => setResults(results))
-    // }
+    useEffect(() => {
+        fetch("/medias")
+        .then((r) => r.json())
+        .then((medias) => setMedias(medias))
+    }, [])
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        const filteredResults = medias.filter((media) => {
+            return media.title.includes(titleInput)
+        })
+        if (filteredResults.length >= 1) {
+            setSearchResults(filteredResults)
+        } else {
+            setDisplayText("No Results Found")
+            setSearchResults([])
+        }
+    }
+    
+    const displayResults = searchResults.map((media) => (
+        <div className="medias" key={media.id} >
+            <img src={media.image_url} alt="media" width="100" height="100"/>
+            <h3>{media.title}</h3>
+            <h5>{media.media_type}</h5>
+            <h5>Streaming on: {media.streaming_platform}</h5>
+            <div>
+            {media.reviews.map((review) => (
+                <div key={review.id}>
+                <p>Rating: {review.rating}</p>
+                <p>Explanation:{review.comment}</p>
+                <p>User: {review.user.username}</p>
+                </div>
+            ))}
+            </div>
+        </div>
+    ))
 
     // share props from home to have access to all media...search all media that way??
     return (
         <>
             <h1>Search for Media</h1>
-            {/* <form onSubmit={handleSubmit}> */}
-            <form>
+            <form onSubmit={handleSubmit}>
                 {/* separate out form elements to above after fetching and setting in state */}
                 <label htmlFor="title">Media Title</label>
                 <input 
@@ -30,25 +61,7 @@ function SearchMedia() {
                 />
                 <button type="submit">Search</button>
             </form>
-            {/* <div>
-                {results.map((result) => (
-                    <div className="medias" key={result.id} >
-                    <img src={result.image_url} alt="media" width="100" height="100"/>
-                    <h3>{result.title}</h3>
-                    <h5>{result.media_type}</h5>
-                    <h5>Streaming on: {result.streaming_platform}</h5>
-                    <div>
-                    {result.reviews.map((review) => (
-                        <div key={review.id}>
-                        <p>Rating: {review.rating}</p>
-                        <p>Explanation:{review.comment}</p>
-                        <p>User: {review.user.username}</p>
-                        </div>
-                    ))}
-                    </div>
-                </div>
-                ))}
-            </div> */}
+            <div>Results: {displayResults}{displayText}</div>
         </>
     )
 }
