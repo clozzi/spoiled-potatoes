@@ -8,11 +8,11 @@ from config import app, db, api
 from models import Media, User, Review
 
 # KeyError: 'user_id' on :5555/
-@app.before_request
-def check_if_logged_in():
-    allowed = ['medias', 'medias/:id', 'reviews', 'signup', 'login', 'check_session']
-    if request.endpoint not in allowed and not session['user_id']:
-        return {'error': 'Unauthorized'}, 401
+# @app.before_request
+# def check_if_logged_in():
+#     allowed = ['medias', 'medias/:id', 'reviews', 'signup', 'login', 'check_session']
+#     if request.endpoint not in allowed and not session['user_id']:
+#         return {'error': 'Unauthorized'}, 401
 
 # CS issue
 @app.route('/')
@@ -62,6 +62,7 @@ class MediaById(Resource):
         if media:
             return media.to_dict(), 200
         return {'error': '404 Resource not found'}, 404
+    
     
 class Reviews(Resource):
 
