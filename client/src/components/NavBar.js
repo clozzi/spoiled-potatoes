@@ -35,6 +35,9 @@ function NavBar({ user, onLogout }) {
                         <div>
                             <NavLink to="/create" className="nav-link">Create New Media</NavLink>
                         </div>
+                        <div>
+                            <NavLink to="/create_review" className="nav-link">Create New Review</NavLink>
+                        </div>
                     </>
                 ) : (
                 <div>

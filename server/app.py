@@ -5,12 +5,12 @@ from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
 
-from models import Media, User
+from models import Media, User, Review
 
 # KeyError: 'user_id' on :5555/
 @app.before_request
 def check_if_logged_in():
-    allowed = ['medias', 'medias/:id', 'signup', 'login', 'check_session']
+    allowed = ['medias', 'medias/:id', 'reviews', 'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session['user_id']:
         return {'error': 'Unauthorized'}, 401
 
@@ -62,6 +62,34 @@ class MediaById(Resource):
         if media:
             return media.to_dict(), 200
         return {'error': '404 Resource not found'}, 404
+    
+class Reviews(Resource):
+
+    def get(self):
+        reviews = []
+        for review in Review.query.all():
+            reviews.append(review.to_dict())
+
+        return make_response(jsonify(reviews), 200)
+    
+    def post(self):
+        request_json = request.get_json()
+        rating = request_json.get('rating')
+        comment = request_json.get('comment')
+
+        review = Review(
+            rating = rating,
+            comment = comment,
+        )
+
+        try: 
+            db.session.add(review)
+            db.session.commit()
+
+            return make_response(review.to_dict()), 201
+        
+        except IntegrityError:
+            return {'error': '422 Unprocessable Entity'}, 422
     
 
 class Signup(Resource):
@@ -123,6 +151,7 @@ class Logout(Resource):
 
 api.add_resource(Medias, '/medias', endpoint='medias')
 api.add_resource(MediaById, '/medias/<int:id>', endpoint='medias/:id')
+api.add_resource(Reviews, '/reviews', endpoint='reviews')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
