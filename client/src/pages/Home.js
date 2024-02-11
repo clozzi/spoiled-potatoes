@@ -26,7 +26,7 @@ function Home() {
             <h5>Streaming on: {media.streaming_platform}</h5>
             <ul>
               {media.reviews.map((review) => (
-                <div>
+                <div key={review.id}>
                   <p>Rating: {review.rating}</p>
                   <p>Explanation:{review.comment}</p>
                   <p>User: {review.user.username}</p>
