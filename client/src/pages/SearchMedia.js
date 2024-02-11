@@ -7,7 +7,7 @@ function SearchMedia() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log(titleInput)
+        fetch('/medias/<int:id>')
     }
 
     // share props from home to have access to all media...search all media that way??

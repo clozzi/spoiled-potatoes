@@ -9,7 +9,7 @@ function Media({ media }) {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
-            <ul>
+            <div>
             {media.reviews.map((review) => (
                 <div key={review.id}>
                 <p>Rating: {review.rating}</p>
@@ -17,7 +17,7 @@ function Media({ media }) {
                 <p>User: {review.user.username}</p>
                 </div>
             ))}
-            </ul>
+            </div>
         </div>
     )
 }

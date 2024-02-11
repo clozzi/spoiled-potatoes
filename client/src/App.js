@@ -6,11 +6,12 @@ import Home from './pages/Home';
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import CreateMedia from "./components/CreateMedia";
-import SearchMedia from "./components/SearchMedia";
+import SearchMedia from "./pages/SearchMedia";
 import CreateReview from "./components/CreateReview";
 
 function App() {
   const [user, setUser] = useState(null)
+
 
   useEffect(() => {
     fetch("/check_session").then((r) => {
@@ -37,7 +38,7 @@ function App() {
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/create" element={<CreateMedia />} />
         <Route path="/create_review" element={<CreateReview />} />
-        <Route path="/medias/:id" element={<SearchMedia />} />
+        <Route path="/search_media" element={<SearchMedia />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
