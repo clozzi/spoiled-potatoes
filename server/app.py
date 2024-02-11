@@ -63,6 +63,7 @@ class MediaById(Resource):
             return media.to_dict(), 200
         return {'error': '404 Resource not found'}, 404
     
+    
 class Reviews(Resource):
 
     def get(self):
