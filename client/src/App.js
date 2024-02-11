@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
-import ErrorPage from './pages/ErrorPage';
-import Home from './pages/Home';
+import ErrorPage from './components/ErrorPage';
+import Home from './components/Home';
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import CreateMedia from "./components/CreateMedia";
-import SearchMedia from "./pages/SearchMedia";
+import SearchMedia from "./components/SearchMedia";
 import CreateReview from "./components/CreateReview";
 
 function App() {

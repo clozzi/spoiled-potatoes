@@ -1,4 +1,4 @@
-import Media from "../components/Media";
+import Media from "./Media";
 import { useState, useEffect } from "react";
 import potato from '../images/potato.jpg';
 
