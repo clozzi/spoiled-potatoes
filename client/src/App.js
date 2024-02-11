@@ -8,6 +8,7 @@ import Signup from "./components/Signup";
 import CreateMedia from "./components/CreateMedia";
 import SearchMedia from "./components/SearchMedia";
 import CreateReview from "./components/CreateReview";
+import Media from "./components/Media";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -37,6 +38,7 @@ function App() {
         <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/create" element={<CreateMedia />} />
+        <Route path="/medias/:id" element={<Media />} />
         <Route path="/create_review" element={<CreateReview />} />
         <Route path="/search_media" element={<SearchMedia />} />
         <Route path="*" element={<ErrorPage />} />

@@ -13,20 +13,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 )
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <App />,
-//     errorElement: <ErrorPage />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Home />
-//       }
-//     ]
-//   }
-// ]);
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<RouterProvider router={router} />);
