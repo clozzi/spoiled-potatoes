@@ -10,16 +10,14 @@ function Media() {
         fetch(`/medias/${id}`)
             .then((r) => {
                 if (r.ok) {
-                    r.json().then((media) =>
+                    r.json().then((media) => (
                     setMedia(media)
-                    )
-                } else {
-                    r.json().then((err) =>
-                    setMedia(err)
-                    )
+                    ))
                 }
             })
     }, [id])
+
+
 
 
 
@@ -29,7 +27,7 @@ function Media() {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
-            {/* <div>
+            <div>
             {media.reviews.map((review) => (
                 <div key={review.id}>
                 <p>Rating: {review.rating}</p>
@@ -37,7 +35,7 @@ function Media() {
                 <p>User: {review.user.username}</p>
                 </div>
             ))}
-            </div> */}
+            </div>
         </div>
     )
 }

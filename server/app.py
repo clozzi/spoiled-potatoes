@@ -7,14 +7,12 @@ from config import app, db, api
 
 from models import Media, User, Review
 
-# KeyError: 'user_id' on :5555/
-# @app.before_request
-# def check_if_logged_in():
-#     allowed = ['medias', 'medias/:id', 'reviews', 'signup', 'login', 'check_session']
-#     if request.endpoint not in allowed and not session['user_id']:
-#         return {'error': 'Unauthorized'}, 401
+@app.before_request
+def check_if_logged_in():
+    allowed = ['medias', 'medias/:id', 'reviews', 'signup', 'login', 'check_session']
+    if request.endpoint not in allowed and not session.get('user_id'):
+        return {'error': 'Unauthorized'}, 401
 
-# CS issue
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
@@ -27,7 +25,7 @@ class Medias(Resource):
         for media in Media.query.all():
             medias.append(media.to_dict())
 
-        return make_response(jsonify(medias), 200)
+        return medias, 200
     
     def post(self):
 
@@ -47,8 +45,7 @@ class Medias(Resource):
         try: 
             db.session.add(new_media)
             db.session.commit()
-
-            return make_response(new_media.to_dict()), 201
+            return new_media.to_dict(), 201
         
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
@@ -71,7 +68,7 @@ class Reviews(Resource):
         for review in Review.query.all():
             reviews.append(review.to_dict())
 
-        return make_response(jsonify(reviews), 200)
+        return reviews, 200
     
     def post(self):
         request_json = request.get_json()
@@ -87,7 +84,7 @@ class Reviews(Resource):
             db.session.add(review)
             db.session.commit()
 
-            return make_response(review.to_dict()), 201
+            return review.to_dict(), 201
         
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
@@ -119,11 +116,7 @@ class Login(Resource):
         user = User.query.filter(User.username == username).first()
         if user:
             session['user_id'] = user.id
-            # make_response, jsonify, to_dict
-            return jsonify({
-                "id": user.id,
-                "username": user.username
-            })
+            return user.to_dict(), 200
         return {'error': 'User not registered'}, 400
     
 # fix [...]
@@ -132,11 +125,7 @@ class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
-            # make_response, jsonify, to_dict
-            return jsonify({
-                "id": user.id,
-                "username": user.username
-            })
+            return user, 200
         else:
             return {'message': '401: Not Authorized'}, 401
 
@@ -146,8 +135,6 @@ class Logout(Resource):
         session['user_id'] = None
         return {'message': '204 No Content'}, 204
     
-
-
 
 
 api.add_resource(Medias, '/medias', endpoint='medias')
