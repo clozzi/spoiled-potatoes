@@ -24,6 +24,16 @@ function Home() {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
+            <ul>
+              {media.reviews.map((review) => (
+                <div>
+                  <p>Rating: {review.rating}</p>
+                  <p>Explanation:{review.comment}</p>
+                  <p>User: {review.user.username}</p>
+                </div>
+                
+              ))}
+            </ul>
           </div>
         ))}</ul>
       </main>
