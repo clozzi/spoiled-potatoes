@@ -7,7 +7,7 @@ from config import app, db, api
 
 from models import Media, User
 
-# KeyError: 'user_id' on :5555
+# KeyError: 'user_id' on :5555/
 @app.before_request
 def check_if_logged_in():
     allowed = ['medias', 'medias/:id', 'signup', 'login', 'check_session']
