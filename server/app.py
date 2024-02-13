@@ -106,8 +106,9 @@ class ReviewById(Resource):
 
     def patch(self, id):
         review = Review.query.filter(Review.id == id).first()
-        for attr in request.form:
-            setattr(review, attr, request.form[attr])
+        data = request.get_json()
+        for attr in data:
+            setattr(review, attr, data[attr])
 
         db.session.add(review)
         db.session.commit()

@@ -18,14 +18,14 @@ function Login({ onLogin }) {
             .then((r) => {
             if (r.status === 200) {
                 onLogin(username)
-                redirect()
+                document.location.reload()
             }
         })
     }
 
-    function redirect() {
-        navigate('/')
-    }
+    // function redirect() {
+        
+    // }
                 
     
     return (
