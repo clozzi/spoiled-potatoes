@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import Review from "./Review"
+
 
 function UserReviews() {
     const [reviews, setReviews] = useState([])
     const { id } = useParams()
 
     useEffect(() => {
-        fetch(`/reviews/${id}`)
+        fetch(`/user_reviews/${id}`)
             .then((r) => {
                 if (r.ok) {
                     r.json().then((data) => 
@@ -16,20 +18,12 @@ function UserReviews() {
             })
     }, [id])
 
-    console.log(reviews)
-
     return (
         <div>
             <h1>My Reviews</h1>
             <div>
                 {reviews.map((review) => (
-                    <div className="userReviews">
-                        <p>Rating: {review.rating}</p>
-                        <p>Comment: {review.comment}</p>
-                        <p>Media ID: {review.media_id}</p>
-                        <p>Update Button Here</p>
-                        <p>Delete Button Here</p>
-                    </div>
+                    <Review review={review} key={review.id}/>
                 ))}
             </div>
         </div>

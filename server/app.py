@@ -9,7 +9,7 @@ from models import Media, User, Review
 
 @app.before_request
 def check_if_logged_in():
-    allowed = ['medias', '/medias/<int:id>', 'reviews', 'reviews/<int:id>', 'signup', 'login', 'check_session']
+    allowed = ['medias', '/medias/<int:id>', 'reviews', 'user_reviews/<int:id>', 'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session.get('user_id'):
         return {'error': 'Unauthorized'}, 401
 
@@ -90,7 +90,7 @@ class Reviews(Resource):
             return {'error': '422 Unprocessable Entity'}, 422
         
 
-class ReviewById(Resource):
+class ReviewByUserId(Resource):
 
     def get(self, id):
         reviews = []
@@ -100,7 +100,10 @@ class ReviewById(Resource):
         if reviews:
             return reviews, 200
         return {'error': '404 Resource not found'}, 404
-    
+
+
+class ReviewById(Resource):
+
     def patch(self, id):
         review = Review.query.filter(Review.id == id).first()
         for attr in request.form:
@@ -110,8 +113,6 @@ class ReviewById(Resource):
         db.session.commit()
 
         return review.to_dict(), 200
-    
-api.add_resource(ReviewById, '/reviews/<int:id>', endpoint='reviews/:id')
     
 
 class Signup(Resource):
@@ -167,6 +168,8 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Logout, '/logout', endpoint='logout')
+api.add_resource(ReviewById, '/reviews/<int:id>', endpoint='reviews/:id')
+api.add_resource(ReviewByUserId, '/user_reviews/<int:id>', endpoint='user_reviews/:id')
 
 
 if __name__ == '__main__':

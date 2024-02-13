@@ -11,6 +11,7 @@ import CreateReview from "./components/CreateReview";
 import Media from "./components/Media";
 import potato from '../src/images/potato.jpg';
 import UserReviews from "./components/UserReviews";
+import EditReview from "./components/EditReview";
 
 
 function App() {
@@ -46,7 +47,8 @@ function App() {
         <Route path="/medias/:id" element={<Media />} />
         <Route path="/create_review" element={<CreateReview />} />
         <Route path="/search_media" element={<SearchMedia />} />
-        <Route path="/reviews/:id" element={<UserReviews />} />
+        <Route path="/user_reviews/:id" element={<UserReviews />} />
+        <Route path="/reviews/:id" element={<EditReview />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </main>
