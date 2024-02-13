@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 function Login({ onLogin }) {
     const [username, setUsername] = useState("");
-
-    const navigate = useNavigate()
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -22,10 +19,6 @@ function Login({ onLogin }) {
             }
         })
     }
-
-    // function redirect() {
-        
-    // }
                 
     
     return (
