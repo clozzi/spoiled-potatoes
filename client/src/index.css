@@ -18,6 +18,12 @@ code {
   display: inline-grid;
 }
 
+.userReviews {
+  border-style: groove;
+  padding: 15px;
+  display: inline-grid;
+}
+
 .mediaImage {
   display: block;
   margin-left: auto;

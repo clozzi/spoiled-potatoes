@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 
 function NavBar({ user, onLogout }) {
 
@@ -25,6 +25,7 @@ function NavBar({ user, onLogout }) {
                         <button className="logoutButton" onClick={handleLogout}>Logout</button>
                         <NavLink to="/create" className="nav-link">Create New Media</NavLink>
                         <NavLink to="/create_review" className="nav-link">Create New Review</NavLink>
+                        <Link to={`/reviews/${user.id}`}>My Reviews</Link>
                     </>
                 ) : (
                    <NavLink to="/login" className="nav-link">Login</NavLink> 

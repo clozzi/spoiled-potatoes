@@ -9,7 +9,7 @@ from models import Media, User, Review
 
 @app.before_request
 def check_if_logged_in():
-    allowed = ['medias', '/medias/<int:id>', 'reviews', 'signup', 'login', 'check_session']
+    allowed = ['medias', '/medias/<int:id>', 'reviews', 'reviews/<int:id>', 'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session.get('user_id'):
         return {'error': 'Unauthorized'}, 401
 
@@ -88,6 +88,20 @@ class Reviews(Resource):
         
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
+        
+
+class ReviewById(Resource):
+
+    def get(self, id):
+        reviews = []
+        for review in Review.query.filter(Review.user_id == id).all():
+            reviews.append(review.to_dict())
+
+        if reviews:
+            return reviews, 200
+        return {'error': '404 Resource not found'}, 404
+    
+api.add_resource(ReviewById, '/reviews/<int:id>', endpoint='reviews/:id')
     
 
 class Signup(Resource):
@@ -124,7 +138,7 @@ class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
-            return user, 200
+            return user.to_dict(), 200
         else:
             return {'message': '401: Not Authorized'}, 401
 

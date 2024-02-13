@@ -18,9 +18,13 @@ function Login({ onLogin }) {
             .then((r) => {
             if (r.status === 200) {
                 onLogin(username)
-                navigate('/')
+                redirect()
             }
         })
+    }
+
+    function redirect() {
+        navigate('/')
     }
                 
     
