@@ -101,6 +101,16 @@ class ReviewById(Resource):
             return reviews, 200
         return {'error': '404 Resource not found'}, 404
     
+    def patch(self, id):
+        review = Review.query.filter(Review.id == id).first()
+        for attr in request.form:
+            setattr(review, attr, request.form[attr])
+
+        db.session.add(review)
+        db.session.commit()
+
+        return review.to_dict(), 200
+    
 api.add_resource(ReviewById, '/reviews/<int:id>', endpoint='reviews/:id')
     
 
