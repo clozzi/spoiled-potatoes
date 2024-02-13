@@ -31,7 +31,7 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       <NavBar user={user} onLogout={handleLogout}/>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -43,7 +43,7 @@ function App() {
         <Route path="/search_media" element={<SearchMedia />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </>
+    </main>
   )
 }
 

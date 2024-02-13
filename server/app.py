@@ -9,7 +9,7 @@ from models import Media, User, Review
 
 @app.before_request
 def check_if_logged_in():
-    allowed = ['medias', 'medias/:id', 'reviews', 'signup', 'login', 'check_session']
+    allowed = ['medias', '/medias/<int:id>', 'reviews', 'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session.get('user_id'):
         return {'error': 'Unauthorized'}, 401
 
@@ -119,7 +119,6 @@ class Login(Resource):
             return user.to_dict(), 200
         return {'error': 'User not registered'}, 400
     
-# fix [...]
 class CheckSession(Resource):
 
     def get(self):

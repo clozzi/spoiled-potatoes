@@ -4,21 +4,25 @@ import { useParams } from "react-router-dom"
 
 function Media() {
     const [media, setMedia] = useState({})
+    const [reviews, setReviews] = useState([])
     const { id } = useParams()
 
     useEffect(() => {
         fetch(`/medias/${id}`)
             .then((r) => {
                 if (r.ok) {
-                    r.json().then((media) => (
-                    setMedia(media)
-                    ))
+                    r.json().then((media) => 
+                    handleDisplayMedia(media)
+                    )
                 }
             })
     }, [id])
 
 
-
+    function handleDisplayMedia(media) {
+        setMedia(media)
+        setReviews(media.reviews)
+    }
 
 
     return (
@@ -28,7 +32,7 @@ function Media() {
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
             <div>
-            {media.reviews.map((review) => (
+            {reviews.map((review) => (
                 <div key={review.id}>
                 <p>Rating: {review.rating}</p>
                 <p>Explanation:{review.comment}</p>
