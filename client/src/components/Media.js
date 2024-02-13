@@ -26,7 +26,7 @@ function Media() {
 
 
     return (
-        <div className="medias" key={media.id} >
+        <div className="media" key={media.id} >
             <img src={media.image_url} alt="media" width="100" height="100"/>
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>

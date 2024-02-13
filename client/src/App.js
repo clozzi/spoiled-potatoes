@@ -9,6 +9,8 @@ import CreateMedia from "./components/CreateMedia";
 import SearchMedia from "./components/SearchMedia";
 import CreateReview from "./components/CreateReview";
 import Media from "./components/Media";
+import potato from '../src/images/potato.jpg';
+
 
 function App() {
   const [user, setUser] = useState(null)
@@ -33,6 +35,7 @@ function App() {
   return (
     <main>
       <NavBar user={user} onLogout={handleLogout}/>
+      <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />

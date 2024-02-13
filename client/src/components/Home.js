@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import potato from '../images/potato.jpg';
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -14,7 +13,7 @@ function Home() {
 
   return (
       <div>
-        <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
+        <h4>Media Home Page</h4>
         {medias.map((media) => (
           <div className="medias" key={media.id} >
             <img src={media.image_url} alt="media" width="100" height="100"/>
