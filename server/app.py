@@ -118,6 +118,15 @@ class ReviewById(Resource):
             return review.to_dict(), 200
         return {'error': '404 Resource not found'}, 404
     
+    def delete(self, id):
+        review = Review.query.filter_by(id = id).first()
+
+        if review:
+            db.session.delete(review)
+            db.session.commit()
+
+            return {'message': 'Review {id} deleted'}, 200
+    
 
 class Signup(Resource):
 
