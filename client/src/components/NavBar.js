@@ -18,16 +18,20 @@ function NavBar({ user, onLogout }) {
         <nav>
             <div>
                 <NavLink to="/" className="nav-link">Home</NavLink> 
-                <NavLink to="/signup" className="nav-link">Signup</NavLink>
+                
                 {user ? (
                     <>
                         <p className="greeting">You are logged in as: {user.username}</p>
                         <button className="logoutButton" onClick={handleLogout}>Logout</button>
                         <NavLink to="/create" className="nav-link">Create New Media</NavLink>
-                        <Link to={`/user_reviews/${user.id}`}>My Reviews</Link>
+                        <Link to={`/user_reviews/${user.id}`} className="nav-link">My Reviews</Link>
                     </>
                 ) : (
-                   <NavLink to="/login" className="nav-link">Login</NavLink> 
+                    <>
+                        <NavLink to="/signup" className="nav-link">Signup</NavLink>
+                        <NavLink to="/login" className="nav-link">Login</NavLink> 
+                    </>
+                    
                 )} 
                 
                 <NavLink to="/search_media" className="nav-link">Search for Media</NavLink>

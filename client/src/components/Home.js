@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
+function Home({ user }) {
   const [medias, setMedias] = useState([])
 
   useEffect(() => {
@@ -20,7 +20,11 @@ function Home() {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
-            <Link to={`/medias/${media.id}`}>Click for more information</Link>
+            {user ? (
+              <Link to={`/medias/${media.id}`}>Click for more information</Link>
+            ) : (
+              <p>Log in to see Reviews</p>
+            )}
           </div>
         ))}
       </div>

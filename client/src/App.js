@@ -41,7 +41,7 @@ function App() {
       <NavBar user={user} onLogout={handleLogout}/>
       <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user}/>} />
         <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/create" element={<CreateMedia />} />
