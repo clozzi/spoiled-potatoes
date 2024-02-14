@@ -32,7 +32,7 @@ function Media({ user }) {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
-            <CreateReview media={media} user={user}/>
+            <CreateReview media={media} user={user} />
             <div>
             {reviews.map((review) => (
                 <div key={review.id}>

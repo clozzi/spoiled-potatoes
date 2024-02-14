@@ -15,7 +15,7 @@ function Signup({ onLogin }) {
     const formik = useFormik({
         initialValues: {username: ""},
         validationSchema: formSchema,
-        onSubmit: (values, {resetForm}) => {
+        onSubmit: (values) => {
             fetch("/signup", {
                 method: "POST",
                 headers: {
@@ -26,7 +26,6 @@ function Signup({ onLogin }) {
                 if (res.status === 201) {
                     setDisplayText("Welcome to Spoiled Potatoes " + values.username + "!")
                     onLogin(values)
-                    resetForm({ values: ''})
                     navigate("/")
                 }
             })

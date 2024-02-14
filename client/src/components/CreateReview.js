@@ -15,11 +15,10 @@ function CreateReview({ user, media }) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values, null, 2),
+                body: JSON.stringify(values),
             }).then((r) => {
                 if (r.status === 201) {
                     console.log(values)
-                    window.location.reload()
                 }
             })
         }
