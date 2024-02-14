@@ -71,3 +71,7 @@ code {
   font-size: min(10vw, 15px) ;
   color: black;
 }
+
+.edit-review {
+  border-style: dotted;
+}

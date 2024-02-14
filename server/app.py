@@ -105,15 +105,18 @@ class ReviewByUserId(Resource):
 class ReviewById(Resource):
 
     def patch(self, id):
-        review = Review.query.filter(Review.id == id).first()
-        data = request.get_json()
-        for attr in data:
-            setattr(review, attr, data[attr])
+        review = Review.query.filter_by(id = id).first()
 
-        db.session.add(review)
-        db.session.commit()
+        if review:
+            data = request.get_json()
+            for attr in data:
+                setattr(review, attr, data.get(attr))
 
-        return review.to_dict(), 200
+            db.session.add(review)
+            db.session.commit()
+
+            return review.to_dict(), 200
+        return {'error': '404 Resource not found'}, 404
     
 
 class Signup(Resource):
