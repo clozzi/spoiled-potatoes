@@ -1,7 +1,11 @@
 import { useFormik } from "formik"
 import * as yup from 'yup'
+import {useNavigate} from "react-router-dom"
 
 function CreateMedia() {
+
+    const navigate = useNavigate()
+
     const formSchema = yup.object().shape({
         title: yup.string().max(32).min(1),
     })
@@ -15,7 +19,6 @@ function CreateMedia() {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log(values)
             fetch("/medias", {
                 method: "POST",
                 headers: {
@@ -24,8 +27,7 @@ function CreateMedia() {
                 body: JSON.stringify(values, null, 2),
             }).then((r) => {
                 if (r.status === 201) {
-                    console.log(r)
-                    console.log(values)
+                    navigate("/")
                 }
             })
         }

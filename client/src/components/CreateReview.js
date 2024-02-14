@@ -1,7 +1,6 @@
 import { useFormik } from "formik"
 
 function CreateReview({ user, media }) {
-    console.log(user)
 
     const formik = useFormik({
         initialValues: {
@@ -20,6 +19,7 @@ function CreateReview({ user, media }) {
             }).then((r) => {
                 if (r.status === 201) {
                     console.log(values)
+                    window.location.reload()
                 }
             })
         }
