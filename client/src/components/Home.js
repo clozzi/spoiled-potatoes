@@ -10,10 +10,6 @@ function Home() {
       .then((medias) => setMedias(medias))
   }, [])
 
-  // function handleUpdateReview(updatedMessage) {
-  //   const updatedReviews
-  // }
-
 
   return (
       <div>

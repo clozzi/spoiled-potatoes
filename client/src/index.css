@@ -75,3 +75,7 @@ code {
 .edit-review {
   border-style: dotted;
 }
+
+.createReview {
+  border-style: dashed;
+}

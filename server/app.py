@@ -9,7 +9,7 @@ from models import Media, User, Review
 
 @app.before_request
 def check_if_logged_in():
-    allowed = ['medias', '/medias/<int:id>', 'reviews', 'user_reviews/<int:id>', 'signup', 'login', 'check_session']
+    allowed = ['medias',  'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session.get('user_id'):
         return {'error': 'Unauthorized'}, 401
 
@@ -74,10 +74,14 @@ class Reviews(Resource):
         request_json = request.get_json()
         rating = request_json.get('rating')
         comment = request_json.get('comment')
+        user_id = request_json.get('user_id')
+        media_id = request_json.get('media_id')
 
         review = Review(
             rating = rating,
             comment = comment,
+            user_id = user_id,
+            media_id = media_id,
         )
 
         try: 

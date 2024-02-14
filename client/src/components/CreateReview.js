@@ -1,14 +1,16 @@
 import { useFormik } from "formik"
 
-function CreateReview() {
+function CreateReview({ user, media }) {
+    console.log(user)
 
     const formik = useFormik({
         initialValues: {
             rating: "",
             comment: "",
+            user_id: user.id,
+            media_id: media.id,
         },
         onSubmit: (values) => {
-            console.log(values)
             fetch("/reviews", {
                 method: "POST",
                 headers: {
@@ -17,7 +19,6 @@ function CreateReview() {
                 body: JSON.stringify(values, null, 2),
             }).then((r) => {
                 if (r.status === 201) {
-                    console.log(r)
                     console.log(values)
                 }
             })
@@ -25,8 +26,8 @@ function CreateReview() {
     })
 
     return (
-        <div>
-            <h1>Create new review</h1>
+        <div className="createReview">
+            <h3>Create new review</h3>
             <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
                 <div>
                     <label>Rating (between 0 and 10):</label>
@@ -49,6 +50,26 @@ function CreateReview() {
                         placeholder="Enter comment..."
                         onChange={formik.handleChange}
                         value={formik.values.comment}
+                    />
+                </div>
+                <div>
+                    <label>User ID:</label>
+                    <input 
+                        type="number" 
+                        id="user_id"
+                        name="user_id"
+                        readOnly
+                        value={formik.values.user_id}
+                    />
+                </div>
+                <div>
+                    <label>Media ID:</label>
+                    <input 
+                        type="number" 
+                        id="media_id"
+                        name="media_id"
+                        readOnly
+                        value={formik.values.media_id}
                     />
                 </div>
                 <button type="submit">Submit New Review</button>

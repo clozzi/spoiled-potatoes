@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import CreateReview from "./CreateReview"
 
 
-function Media() {
+function Media({ user }) {
     const [media, setMedia] = useState({})
     const [reviews, setReviews] = useState([])
     const { id } = useParams()
@@ -31,6 +32,7 @@ function Media() {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
+            <CreateReview media={media} user={user}/>
             <div>
             {reviews.map((review) => (
                 <div key={review.id}>

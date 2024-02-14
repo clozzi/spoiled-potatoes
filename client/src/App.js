@@ -8,8 +8,11 @@ import Signup from "./components/Signup";
 import CreateMedia from "./components/CreateMedia";
 import SearchMedia from "./components/SearchMedia";
 import CreateReview from "./components/CreateReview";
+import Media from "./components/Media";
 import potato from '../src/images/potato.jpg';
 import UserReviews from "./components/UserReviews";
+import EditReview from "./components/EditReview";
+import DeleteReview from "./components/DeleteReview";
 
 
 function App() {
@@ -42,9 +45,12 @@ function App() {
         <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/create" element={<CreateMedia />} />
-        <Route path="/create_review" element={<CreateReview />} />
+        <Route path="/medias/:id" element={<Media user={user}/>} />
+        <Route path="/reviews" element={<CreateReview  />} />
         <Route path="/search_media" element={<SearchMedia />} />
         <Route path="/user_reviews/:id" element={<UserReviews />} />
+        <Route path="/reviews/:id" element={<EditReview />} />
+        <Route path="/reviews/:id" element={<DeleteReview />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </main>

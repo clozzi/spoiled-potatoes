@@ -24,7 +24,6 @@ function NavBar({ user, onLogout }) {
                         <p className="greeting">You are logged in as: {user.username}</p>
                         <button className="logoutButton" onClick={handleLogout}>Logout</button>
                         <NavLink to="/create" className="nav-link">Create New Media</NavLink>
-                        <NavLink to="/create_review" className="nav-link">Create New Review</NavLink>
                         <Link to={`/user_reviews/${user.id}`}>My Reviews</Link>
                     </>
                 ) : (
