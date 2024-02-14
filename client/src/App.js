@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import ErrorPage from './components/ErrorPage';
 import Home from './components/Home';
 import Login from "./components/Login";
@@ -18,6 +18,7 @@ import DeleteReview from "./components/DeleteReview";
 function App() {
   const [user, setUser] = useState(null)
 
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("/check_session").then((r) => {
@@ -30,6 +31,8 @@ function App() {
 
   function handleLogin(username) {
     setUser(username)
+    navigate('/')
+    document.location.reload()
   }
 
   function handleLogout() {
@@ -47,7 +50,7 @@ function App() {
         <Route path="/create" element={<CreateMedia />} />
         <Route path="/medias/:id" element={<Media user={user}/>} />
         <Route path="/reviews" element={<CreateReview  />} />
-        <Route path="/search_media" element={<SearchMedia />} />
+        <Route path="/search_media" element={<SearchMedia user={user} />} />
         <Route path="/user_reviews/:id" element={<UserReviews />} />
         <Route path="/reviews/:id" element={<EditReview />} />
         <Route path="/reviews/:id" element={<DeleteReview />} />

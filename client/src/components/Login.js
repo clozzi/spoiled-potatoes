@@ -15,7 +15,7 @@ function Login({ onLogin }) {
             .then((r) => {
             if (r.status === 200) {
                 onLogin(username)
-                document.location.reload()
+                // document.location.reload()
             }
         })
     }

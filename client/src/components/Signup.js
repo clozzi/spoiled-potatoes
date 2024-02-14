@@ -1,12 +1,12 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 
 function Signup({ onLogin }) {
     const [displayText, setDisplayText] = useState("Sign Up Now!")
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const formSchema = yup.object().shape({
         username: yup.string().required("Must enter username").max(20)
@@ -26,7 +26,6 @@ function Signup({ onLogin }) {
                 if (res.status === 201) {
                     setDisplayText("Welcome to Spoiled Potatoes " + values.username + "!")
                     onLogin(values)
-                    navigate("/")
                 }
             })
         }

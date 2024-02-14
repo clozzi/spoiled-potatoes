@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 
-function SearchMedia() {
+function SearchMedia({ user }) {
     const [titleInput, setTitleInput] = useState("")
     const [medias, setMedias] = useState([])
     const [searchResults, setSearchResults] = useState([])
@@ -22,7 +22,6 @@ function SearchMedia() {
             setSearchResults(filteredResults)
         } else {
             setDisplayText("No Results Found")
-            setSearchResults([])
         }
     }
     
@@ -32,24 +31,26 @@ function SearchMedia() {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
-            <div>
-            {media.reviews.map((review) => (
-                <div key={review.id}>
-                <p>Rating: {review.rating}</p>
-                <p>Explanation:{review.comment}</p>
-                <p>User: {review.user.username}</p>
+            {user ? (
+                <div>
+                    {media.reviews.map((review) => (
+                    <div key={review.id}>
+                        <p>Rating: {review.rating}</p>
+                        <p>Explanation:{review.comment}</p>
+                        <p>User: {review.user.username}</p>
+                    </div>
+                    ))}
                 </div>
-            ))}
-            </div>
+            ) : (
+                <p>Log in to see reviews</p>
+            )}
         </div>
     ))
 
-    // share props from home to have access to all media...search all media that way??
     return (
         <>
             <h1>Search for Media</h1>
             <form onSubmit={handleSubmit}>
-                {/* separate out form elements to above after fetching and setting in state */}
                 <label htmlFor="title">Media Title</label>
                 <input 
                     id="title" 
