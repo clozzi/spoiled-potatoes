@@ -7,7 +7,6 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import CreateMedia from "./components/CreateMedia";
 import SearchMedia from "./components/SearchMedia";
-import CreateReview from "./components/CreateReview";
 import Media from "./components/Media";
 import potato from '../src/images/potato.jpg';
 import UserReviews from "./components/UserReviews";
@@ -17,13 +16,17 @@ import DeleteReview from "./components/DeleteReview";
 
 function App() {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
   useEffect(() => {
     fetch("/check_session").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user))
+        r.json().then((data) => {
+          setUser(data)
+          setLoading(false)
+      })
       }
     })
   }, [])
@@ -32,7 +35,6 @@ function App() {
   function handleLogin(username) {
     setUser(username)
     navigate('/')
-    document.location.reload()
   }
 
   function handleLogout() {
@@ -41,21 +43,24 @@ function App() {
 
   return (
     <main>
-      <NavBar user={user} onLogout={handleLogout}/>
-      <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
-      <Routes>
-        <Route path="/" element={<Home user={user}/>} />
-        <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
-        <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-        <Route path="/create" element={<CreateMedia />} />
-        <Route path="/medias/:id" element={<Media user={user}/>} />
-        <Route path="/reviews" element={<CreateReview  />} />
-        <Route path="/search_media" element={<SearchMedia user={user} />} />
-        <Route path="/user_reviews/:id" element={<UserReviews />} />
-        <Route path="/reviews/:id" element={<EditReview />} />
-        <Route path="/reviews/:id" element={<DeleteReview />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      {loading ? <p>Loading...</p> : 
+        <>
+          <NavBar user={user} onLogout={handleLogout}/>
+          <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
+          <Routes>
+            <Route path="/" element={<Home user={user}/>} />
+            <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
+            <Route path="/login" element={<Login onLogin={handleLogin}/>} />
+            <Route path="/create" element={<CreateMedia />} />
+            <Route path="/medias/:id" element={<Media user={user}/>} />
+            <Route path="/search_media" element={<SearchMedia user={user} />} />
+            <Route path="/user_reviews/:id" element={<UserReviews />} />
+            <Route path="/reviews/:id" element={<EditReview />} />
+            <Route path="/reviews/:id" element={<DeleteReview />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </>
+      }
     </main>
   )
 }

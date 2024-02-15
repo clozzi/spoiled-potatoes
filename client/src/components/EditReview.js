@@ -18,7 +18,6 @@ function EditReview({ review, onUpdateReview }) {
             }).then((r) => {
                 if (r.status === 200) {
                     onUpdateReview(values)
-                    window.location.reload()
                 }
             })
         }

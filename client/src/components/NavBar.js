@@ -1,6 +1,7 @@
 import { NavLink, useNavigate, Link } from "react-router-dom";
 
 function NavBar({ user, onLogout }) {
+    // add loading state
 
     const navigate = useNavigate()
 

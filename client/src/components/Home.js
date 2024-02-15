@@ -20,11 +20,12 @@ function Home({ user }) {
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
-            {user ? (
+            <Link to={`/medias/${media.id}`}>Click for more information</Link>
+            {/* {user ? (
               <Link to={`/medias/${media.id}`}>Click for more information</Link>
             ) : (
               <p>Log in to see Reviews</p>
-            )}
+            )} */}
           </div>
         ))}
       </div>
