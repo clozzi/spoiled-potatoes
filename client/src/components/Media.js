@@ -11,12 +11,10 @@ function Media({ user }) {
 
     useEffect(() => {
         fetch(`/medias/${id}`)
-            .then((r) => {
-                if (r.ok) {
-                    r.json().then((data) => {
-                    handleDisplayMedia(data);
-                    setLoading(false)
-                })}
+            .then((r) => r.json())
+            .then((data) => {
+                handleDisplayMedia(data)
+                setLoading(false)
             })
     }, [id])
 

@@ -32,8 +32,8 @@ function App() {
   }, [])
 
 
-  function handleLogin(username) {
-    setUser(username)
+  function handleLogin(user) {
+    setUser(user)
     navigate('/')
   }
 

@@ -20,12 +20,12 @@ function Signup({ onLogin }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values, null, 2),
-            }).then((res) => {
-                if (res.status === 201) {
-                    setDisplayText("Welcome to Spoiled Potatoes " + values.username + "!")
-                    onLogin(values)
-                }
             })
+                .then((r) => r.json())
+                .then((data) => {
+                    setDisplayText("Welcome to Spoiled Potatoes " + values.username + "!")
+                    onLogin(data)
+                })
         }
     })
 

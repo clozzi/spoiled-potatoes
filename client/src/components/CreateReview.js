@@ -19,12 +19,18 @@ function CreateReview({ user, media }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-            }).then((r) => {
-                if (r.status === 201) {
-                    console.log(values)
-                    setLoading(false)
-                }
             })
+            .then((r) => r.json())
+            .then((data) => {
+                console.log(data)
+                setLoading(false)
+            })
+            // .then((r) => {
+            //     if (r.status === 201) {
+            //         console.log(values)
+            //         setLoading(false)
+            //     }
+            // })
         }
     })
 

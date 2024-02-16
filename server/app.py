@@ -156,6 +156,7 @@ class Login(Resource):
     def post(self):
         username = request.get_json()['username']
         user = User.query.filter(User.username == username).first()
+
         if user:
             session['user_id'] = user.id
             return user.to_dict(), 200
