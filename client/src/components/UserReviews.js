@@ -31,8 +31,10 @@ function UserReviews({ user }) {
     }
 
     function handleDeleteReview(id) {
+        setLoading(true)
         const updatedReviews = reviews.filter((review) => review.id !== id)
         setReviews(updatedReviews)
+        setLoading(false)
     }
 
     const filteredReviews = reviews.filter((review) => review.user_id === user.id)

@@ -8,8 +8,8 @@ function CreateReview({ user, media }) {
         initialValues: {
             rating: "",
             comment: "",
-            user_id: user.id,
-            media_id: media.id,
+            user_id: "",
+            media_id: "",
         },
         onSubmit: (values) => {
             setLoading(true)
@@ -18,7 +18,12 @@ function CreateReview({ user, media }) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values),
+                body: JSON.stringify({
+                    rating: values.rating,
+                    comment: values.comment,
+                    user_id: user.id,
+                    media_id: media.id
+                }),
             })
             .then((r) => r.json())
             .then((data) => {
