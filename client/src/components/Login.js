@@ -14,11 +14,6 @@ function Login({ onLogin }) {
         })
             .then((r) => r.json())
             .then((user) => onLogin(user))
-        //     .then((r) => {
-        //     if (r.status === 200) {
-        //         onLogin(username)
-        //     }
-        // })
     }
                 
     

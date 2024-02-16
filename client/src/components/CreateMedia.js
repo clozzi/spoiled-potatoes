@@ -1,10 +1,7 @@
 import { useFormik } from "formik"
 import * as yup from 'yup'
-import {useNavigate} from "react-router-dom"
 
-function CreateMedia() {
-
-    const navigate = useNavigate()
+function CreateMedia({ onAddMedia }) {
 
     const formSchema = yup.object().shape({
         title: yup.string().max(32).min(1),
@@ -25,11 +22,12 @@ function CreateMedia() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values, null, 2),
-            }).then((r) => {
-                if (r.status === 201) {
-                    navigate("/")
-                }
             })
+                .then((r) => r.json())
+                .then((data) => {
+                    console.log(data)
+                    onAddMedia(data)
+                })
         }
     })
 
@@ -118,7 +116,6 @@ function CreateMedia() {
                         value={formik.values.image_url}
                     />
                 </div>
-                <button type="reset">Reset Form</button>
                 <button type="submit">Submit New Media</button>
             </form>
         </div>

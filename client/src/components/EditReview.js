@@ -15,11 +15,9 @@ function EditReview({ review, onUpdateReview }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values, null ,2),
-            }).then((r) => {
-                if (r.status === 200) {
-                    onUpdateReview(values)
-                }
             })
+                .then((r) => r.json())
+                .then((data) => onUpdateReview(data))
         }
     })
 

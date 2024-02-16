@@ -25,12 +25,6 @@ function CreateReview({ user, media }) {
                 console.log(data)
                 setLoading(false)
             })
-            // .then((r) => {
-            //     if (r.status === 201) {
-            //         console.log(values)
-            //         setLoading(false)
-            //     }
-            // })
         }
     })
 

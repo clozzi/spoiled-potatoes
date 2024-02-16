@@ -17,6 +17,7 @@ import DeleteReview from "./components/DeleteReview";
 function App() {
   const [user, setUser] = useState(null)
   const [medias, setMedias] = useState([])
+  // const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -36,17 +37,27 @@ function App() {
     fetch("/medias")
       .then((r) => r.json())
       .then((data) => setMedias(data))
-  })
+  }, [])
 
 
   function handleLogin(user) {
     setUser(user)
+    // setReviews(user.reviews)
     navigate('/')
   }
 
   function handleLogout() {
     setUser(null)
   }
+
+  function handleNewMedia(data) {
+    setMedias([...medias, data])
+    navigate('/')
+  }
+
+  // function handleUpdateReviews(data) {
+  //   setReviews(data)
+  // }
 
   return (
     <main>
@@ -58,10 +69,10 @@ function App() {
             <Route path="/" element={<Home user={user} medias={medias} />} />
             <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
             <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-            <Route path="/create" element={<CreateMedia />} />
+            <Route path="/create" element={<CreateMedia onAddMedia={handleNewMedia} />} />
             <Route path="/medias/:id" element={<Media user={user}/>} />
             <Route path="/search_media" element={<SearchMedia user={user} medias={medias} />} />
-            <Route path="/user_reviews/:id" element={<UserReviews />} />
+            <Route path="/user_reviews/:id" element={<UserReviews user={user} />} />
             <Route path="/reviews/:id" element={<EditReview />} />
             <Route path="/reviews/:id" element={<DeleteReview />} />
             <Route path="*" element={<ErrorPage />} />

@@ -1,24 +1,15 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
 import EditReview from "./EditReview"
 import DeleteReview from "./DeleteReview"
 
 
-function UserReviews() {
+function UserReviews({ user }) {
     const [reviews, setReviews] = useState([])
-    // const [isEditing, setIsEditing] = useState(false);
-    const { id } = useParams()
-
     useEffect(() => {
-        fetch(`/user_reviews/${id}`)
-            .then((r) => {
-                if (r.ok) {
-                    r.json().then((data) => 
-                    setReviews(data)
-                    )
-                }
-            })
-    }, [id])
+        fetch("/reviews")
+            .then((r) => r.json())
+            .then((reviews) => setReviews(reviews))
+    }, [])
 
     function handleUpdateReview(updatedReview) {
         // setIsEditing(false)
@@ -37,7 +28,9 @@ function UserReviews() {
         setReviews(updatedReviews)
     }
 
-    const displayReviews = reviews.map((review) => (
+    const filteredReviews = reviews.filter((review) => review.user_id === user.id)
+
+    const displayReviews = filteredReviews.map((review) => (
         <div className="userReviews" key={review.id} >
             <p>Rating: {review.rating}</p>
             <p>Comment: {review.comment}</p>
@@ -50,7 +43,12 @@ function UserReviews() {
     return (
         <div>
             <h1>My Reviews</h1>
-            <div>{displayReviews}</div>
+            {displayReviews ? (
+                <div>{displayReviews}</div>
+            ) : (
+                <p>No Reviews Yet</p>
+            )}
+            
         </div>
     )
 }
