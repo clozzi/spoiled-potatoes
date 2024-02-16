@@ -1,8 +1,7 @@
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function NavBar({ user, onLogout }) {
-    // add loading state
-
+    
     const navigate = useNavigate()
 
     function handleLogout() {
@@ -25,7 +24,7 @@ function NavBar({ user, onLogout }) {
                         <p className="greeting">You are logged in as: {user.username}</p>
                         <button className="logoutButton" onClick={handleLogout}>Logout</button>
                         <NavLink to="/create" className="nav-link">Create New Media</NavLink>
-                        <Link to={`/user_reviews/${user.id}`} className="nav-link">My Reviews</Link>
+                        <NavLink to={`/user_reviews/${user.id}`} className="nav-link">My Reviews</NavLink>
                     </>
                 ) : (
                     <>

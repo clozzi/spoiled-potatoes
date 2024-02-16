@@ -2,6 +2,7 @@
 from flask import request, session, make_response
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy_serializer import SerializerMixin
 
 from config import app, db, api
 
@@ -18,7 +19,7 @@ def index():
     return '<h1>Project Server</h1>'
 
 
-class Medias(Resource):
+class Medias(Resource, SerializerMixin):
 
     def get(self):
         medias = []
@@ -51,7 +52,7 @@ class Medias(Resource):
             return {'error': '422 Unprocessable Entity'}, 422
         
 
-class MediaById(Resource):
+class MediaById(Resource, SerializerMixin):
 
     def get(self, id):
         media = Media.query.filter(Media.id == id).first()
@@ -61,7 +62,7 @@ class MediaById(Resource):
         return {'error': '404 Resource not found'}, 404
     
     
-class Reviews(Resource):
+class Reviews(Resource, SerializerMixin):
 
     def get(self):
         reviews = []
@@ -94,7 +95,7 @@ class Reviews(Resource):
             return {'error': '422 Unprocessable Entity'}, 422
         
 
-class ReviewByUserId(Resource):
+class ReviewByUserId(Resource, SerializerMixin):
 
     def get(self, id):
         reviews = []
@@ -106,7 +107,7 @@ class ReviewByUserId(Resource):
         return {'error': '404 Resource not found'}, 404
 
 
-class ReviewById(Resource):
+class ReviewById(Resource, SerializerMixin):
 
     def patch(self, id):
         review = Review.query.filter_by(id = id).first()
@@ -132,12 +133,12 @@ class ReviewById(Resource):
             return {'message': 'Review {id} deleted'}, 200
     
 
-class Signup(Resource):
+class Signup(Resource, SerializerMixin):
 
     def post(self):
         
-        request_json = request.get_json()
-        username = request_json.get('username')
+        form_data = request.get_json()
+        username = form_data.get('username')
         new_user = User(
             username=username
         )
@@ -151,7 +152,7 @@ class Signup(Resource):
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
     
-class Login(Resource):
+class Login(Resource, SerializerMixin):
 
     def post(self):
         username = request.get_json()['username']
@@ -162,16 +163,21 @@ class Login(Resource):
             return user.to_dict(), 200
         return {'error': 'User not registered'}, 400
     
-class CheckSession(Resource):
+class CheckSession(Resource, SerializerMixin):
 
     def get(self):
-        user = User.query.filter(User.id == session.get('user_id')).first()
-        if user:
-            return user.to_dict()
-        else:
-            return {'message': '401: Not Authorized'}, 401
+        id = session.get('user_id')
+        if id:
+            user = User.query.filter_by(id=id).first()
+            return user.to_dict(), 200
+        return {}, 401
+        # user = User.query.filter(User.id == session.get('user_id')).first()
+        # if user:
+        #     return user.to_dict()
+        # else:
+        #     return {'message': '401: Not Authorized'}, 401
 
-class Logout(Resource):
+class Logout(Resource, SerializerMixin):
 
     def delete(self):
         session['user_id'] = None

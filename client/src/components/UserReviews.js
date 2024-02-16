@@ -5,14 +5,20 @@ import DeleteReview from "./DeleteReview"
 
 function UserReviews({ user }) {
     const [reviews, setReviews] = useState([])
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
+        setLoading(true)
         fetch("/reviews")
             .then((r) => r.json())
-            .then((reviews) => setReviews(reviews))
+            .then((reviews) => {
+                setReviews(reviews)
+                setLoading(false)
+            })
     }, [])
 
     function handleUpdateReview(updatedReview) {
-        // setIsEditing(false)
+        setLoading(true)
         const updatedReviews = reviews.map((review) => {
             if (review.id === updatedReview.id) {
                 return updatedReview
@@ -21,6 +27,7 @@ function UserReviews({ user }) {
             }
         })
         setReviews(updatedReviews)
+        setLoading(false)
     }
 
     function handleDeleteReview(id) {
@@ -41,15 +48,20 @@ function UserReviews({ user }) {
     ))
 
     return (
-        <div>
-            <h1>My Reviews</h1>
-            {displayReviews ? (
-                <div>{displayReviews}</div>
-            ) : (
-                <p>No Reviews Yet</p>
-            )}
-            
-        </div>
+        <>
+        {loading ? (
+            <p>Loading</p>
+        ) : (
+            <div>
+                <h1>My Reviews</h1>
+                {displayReviews ? (
+                    <div>{displayReviews}</div>
+                ) : (
+                    <p>No Reviews Yet</p>
+                )}    
+            </div>
+        )}
+      </>  
     )
 }
 

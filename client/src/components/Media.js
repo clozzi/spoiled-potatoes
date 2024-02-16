@@ -10,6 +10,7 @@ function Media({ user }) {
     const { id } = useParams()
 
     useEffect(() => {
+        setLoading(true)
         fetch(`/medias/${id}`)
             .then((r) => r.json())
             .then((data) => {
