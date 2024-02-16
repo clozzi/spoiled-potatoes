@@ -16,6 +16,7 @@ import DeleteReview from "./components/DeleteReview";
 
 function App() {
   const [user, setUser] = useState(null)
+  const [medias, setMedias] = useState([])
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -30,6 +31,12 @@ function App() {
       }
     })
   }, [])
+
+  useEffect(() => {
+    fetch("/medias")
+      .then((r) => r.json())
+      .then((data) => setMedias(data))
+  })
 
 
   function handleLogin(user) {
@@ -48,12 +55,12 @@ function App() {
           <NavBar user={user} onLogout={handleLogout}/>
           <h1><img src={potato} alt="spoiled potato" width="30" height="30" />Welcome to Spoiled Potatoes!<img src={potato} alt="spoiled potato" width="30" height="30" /></h1>
           <Routes>
-            <Route path="/" element={<Home user={user}/>} />
+            <Route path="/" element={<Home user={user} medias={medias} />} />
             <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
             <Route path="/login" element={<Login onLogin={handleLogin}/>} />
             <Route path="/create" element={<CreateMedia />} />
             <Route path="/medias/:id" element={<Media user={user}/>} />
-            <Route path="/search_media" element={<SearchMedia user={user} />} />
+            <Route path="/search_media" element={<SearchMedia user={user} medias={medias} />} />
             <Route path="/user_reviews/:id" element={<UserReviews />} />
             <Route path="/reviews/:id" element={<EditReview />} />
             <Route path="/reviews/:id" element={<DeleteReview />} />

@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 
-function SearchMedia({ user }) {
+function SearchMedia({ user, medias }) {
     const [titleInput, setTitleInput] = useState("")
-    const [medias, setMedias] = useState([])
     const [searchResults, setSearchResults] = useState([])
-    const [displayText, setDisplayText] = useState("")
 
-    useEffect(() => {
-        fetch("/medias")
-        .then((r) => r.json())
-        .then((medias) => setMedias(medias))
-    }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -21,7 +14,7 @@ function SearchMedia({ user }) {
         if (filteredResults.length >= 1) {
             setSearchResults(filteredResults)
         } else {
-            setDisplayText("No Results Found")
+            setSearchResults([])
         }
     }
     
@@ -62,7 +55,12 @@ function SearchMedia({ user }) {
                 />
                 <button type="submit">Search</button>
             </form>
-            <div>Results: {displayResults}{displayText}</div>
+            {searchResults.length !== 0 ? (
+                <div>Results: {displayResults}</div>
+            ) : (
+                <p>No Results Found</p>
+            )}
+            
         </>
     )
 }

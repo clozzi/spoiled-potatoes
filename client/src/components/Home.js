@@ -1,14 +1,6 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Home({ user }) {
-  const [medias, setMedias] = useState([])
-
-  useEffect(() => {
-    fetch("/medias")
-      .then((r) => r.json())
-      .then((medias) => setMedias(medias))
-  }, [])
+function Home({ user, medias }) {
 
 
   return (
