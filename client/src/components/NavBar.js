@@ -7,12 +7,11 @@ function NavBar({ user, onLogout }) {
     function handleLogout() {
         fetch("/logout", {
             method: "DELETE",
-        }).then(() => 
+        }).then(() => {
             onLogout(),
             navigate('/')
-            )
+        })
         }
-
 
     return (
         <nav>
@@ -38,5 +37,6 @@ function NavBar({ user, onLogout }) {
         </nav>
     )
 }
+
 
 export default NavBar

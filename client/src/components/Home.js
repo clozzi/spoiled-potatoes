@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 
 function Home({ user, medias }) {
 
-
   return (
       <div>
         <h4>Media Home Page</h4>
@@ -22,5 +21,6 @@ function Home({ user, medias }) {
       </div>
   );
 };
+
 
 export default Home

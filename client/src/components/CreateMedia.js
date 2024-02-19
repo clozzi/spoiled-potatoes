@@ -24,9 +24,7 @@ function CreateMedia({ onAddMedia }) {
                 body: JSON.stringify(values, null, 2),
             })
                 .then((r) => r.json())
-                .then((data) => {
-                    onAddMedia(data)
-                })
+                .then((newMedia) => onAddMedia(newMedia))
         }
     })
 

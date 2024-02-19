@@ -1,10 +1,8 @@
 import { useState } from "react"
 
-
 function SearchMedia({ user, medias }) {
     const [titleInput, setTitleInput] = useState("")
     const [searchResults, setSearchResults] = useState([])
-
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -60,9 +58,9 @@ function SearchMedia({ user, medias }) {
             ) : (
                 <p>No Results Found</p>
             )}
-            
         </>
     )
 }
+
 
 export default SearchMedia

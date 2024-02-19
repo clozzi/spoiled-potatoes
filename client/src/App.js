@@ -13,7 +13,6 @@ import UserReviews from "./components/UserReviews";
 import EditReview from "./components/EditReview";
 import DeleteReview from "./components/DeleteReview";
 
-
 function App() {
   const [user, setUser] = useState(null)
   const [medias, setMedias] = useState([])
@@ -27,7 +26,7 @@ function App() {
         r.json().then((data) => {
           setUser(data)
           setLoading(false)
-      })
+        })
       }
     })
   }, [])
@@ -37,7 +36,6 @@ function App() {
       .then((r) => r.json())
       .then((data) => setMedias(data))
   }, [])
-
 
   function handleLogin(user) {
     if (user.username) {
@@ -80,5 +78,6 @@ function App() {
     </main>
   )
 }
+
 
 export default App;

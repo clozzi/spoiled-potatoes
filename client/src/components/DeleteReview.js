@@ -9,10 +9,10 @@ function DeleteReview({ review, onDeleteReview }) {
         .then(() => onDeleteReview(review.id))
     }
 
-
     return (
         <button onClick={handleDeleteClick}>Delete Review</button>
     )
 }
+
 
 export default DeleteReview

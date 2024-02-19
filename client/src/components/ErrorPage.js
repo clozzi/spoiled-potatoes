@@ -2,6 +2,7 @@ import NavBar from "./NavBar";
 import { useRouteError } from "react-router-dom";
 
 function ErrorPage() {
+  
   const error = useRouteError();
   console.error(error);
 
@@ -16,5 +17,6 @@ function ErrorPage() {
     </>
   );
 }
+
 
 export default ErrorPage;

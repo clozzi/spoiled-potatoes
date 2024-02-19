@@ -23,13 +23,10 @@ function Login({ onLogin }) {
                 body: JSON.stringify(values, null, 2),
             })
                 .then((r) => r.json())
-                .then((data) => {
-                    onLogin(data)
-                })
+                .then((data) => onLogin(data))
         }
     })
-                
-    
+
     return (
         <div>
             <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
@@ -58,5 +55,6 @@ function Login({ onLogin }) {
         </div>
     )
 }
+
 
 export default Login

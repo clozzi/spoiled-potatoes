@@ -2,8 +2,8 @@ import { useState, useEffect } from "react"
 import EditReview from "./EditReview"
 import DeleteReview from "./DeleteReview"
 
-
 function UserReviews({ user }) {
+
     const [reviews, setReviews] = useState([])
     const [filteredReviews, setFilteredReviews] = useState([])
     const [loading, setLoading] = useState(true)
@@ -11,9 +11,7 @@ function UserReviews({ user }) {
     useEffect(() => {
         fetch("/reviews")
             .then((r) => r.json())
-            .then((reviews) => {
-                setReviews(reviews)
-            })
+            .then((reviews) => setReviews(reviews))
     }, [])
 
     function handleUpdateReview(updatedReview) {
@@ -39,7 +37,6 @@ function UserReviews({ user }) {
         setLoading(false)
     }, 1000)
     
-
     const displayReviews = filteredReviews.map((review) => (
         <div className="userReviews" key={review.id} >
             <p>Rating: {review.rating}</p>
@@ -52,20 +49,21 @@ function UserReviews({ user }) {
 
     return (
         <>
-        {loading ? (
-            <p>Loading</p>
-        ) : (
-            <div>
-                <h1>My Reviews</h1>
-                {displayReviews ? (
-                    <div>{displayReviews}</div>
-                ) : (
-                    <p>No Reviews Yet</p>
-                )}    
-            </div>
-        )}
+            {loading ? (
+                <p>Loading</p>
+            ) : (
+                <div>
+                    <h1>My Reviews</h1>
+                    {displayReviews ? (
+                        <div>{displayReviews}</div>
+                    ) : (
+                        <p>No Reviews Yet</p>
+                    )}    
+                </div>
+            )}
       </>  
     )
 }
+
 
 export default UserReviews
