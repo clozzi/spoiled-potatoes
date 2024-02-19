@@ -159,11 +159,17 @@ class Login(Resource, SerializerMixin):
 
     def post(self):
         username = request.get_json()['username']
+        password = request.get_json()['password']
         user = User.query.filter(User.username == username).first()
 
         if user:
-            session['user_id'] = user.id
-            return user.to_dict(), 200
+            is_authenticated = user.authenticate(password)
+
+            if is_authenticated:
+                session['user_id'] = user.id
+                return user.to_dict(), 200
+            else:
+                return {'error': 'incorrect password'}
         return {'error': 'User not registered'}, 400
     
 class CheckSession(Resource, SerializerMixin):
