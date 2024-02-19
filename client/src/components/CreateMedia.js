@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import * as yup from 'yup'
 
-function CreateMedia({ onAddMedia }) {
+function CreateMedia({ onAddMedia, user }) {
 
     const formSchema = yup.object().shape({
         title: yup.string().max(32).min(1),
@@ -31,7 +31,8 @@ function CreateMedia({ onAddMedia }) {
     return (
         <div>
             <h3>Contribute to the Spoiled Potatoes Community!</h3>
-            <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
+            {user ? (
+                <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
                 <div>
                      <p>Select a Media Type:</p>
                      <input 
@@ -116,6 +117,10 @@ function CreateMedia({ onAddMedia }) {
                 </div>
                 <button type="submit">Submit New Media</button>
             </form>
+            ) : (
+                <h3>You must be logged in to contribute</h3>
+            )}
+            
         </div>
     )
 }

@@ -27,8 +27,6 @@ function App() {
           setUser(data)
           setLoading(false)
         })
-      } else {
-        navigate('/login')
       }
     })
   }, [])
@@ -67,7 +65,7 @@ function App() {
             <Route path="/" element={<Home user={user} medias={medias} />} />
             <Route path="/signup" element={<Signup onLogin={handleLogin}/>} />
             <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-            <Route path="/create" element={<CreateMedia onAddMedia={handleNewMedia} />} />
+            <Route path="/create" element={<CreateMedia onAddMedia={handleNewMedia} user={user} />} />
             <Route path="/medias/:id" element={<Media user={user}/>} />
             <Route path="/search_media" element={<SearchMedia user={user} medias={medias} />} />
             <Route path="/user_reviews/:id" element={<UserReviews user={user} />} />

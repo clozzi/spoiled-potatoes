@@ -34,7 +34,8 @@ function CreateReview({ user, media, onCreateReview }) {
     return (
         <div className="createReview">
             <h3>Create new review</h3>
-            <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }} id="newReview">
+            {user ? (
+                <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }} id="newReview">
             <div>
                 <label>Rating (between 0 and 10):</label>
                 <input 
@@ -80,6 +81,10 @@ function CreateReview({ user, media, onCreateReview }) {
             </div>
             <button type="submit">Submit New Review</button>
             </form>
+            ) : (
+                <h3>You must be logged in to leave a review</h3>
+            )}
+            
         </div>
     )
 }

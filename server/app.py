@@ -5,14 +5,15 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy_serializer import SerializerMixin
 
 from config import app, db, api
-
 from models import Media, User, Review
+
 
 @app.before_request
 def check_if_logged_in():
     allowed = ['medias',  'signup', 'login', 'check_session']
     if request.endpoint not in allowed and not session.get('user_id'):
         return {'error': 'Unauthorized'}, 401
+
 
 @app.route('/')
 def index():
@@ -155,6 +156,7 @@ class Signup(Resource, SerializerMixin):
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
     
+
 class Login(Resource, SerializerMixin):
 
     def post(self):
@@ -172,6 +174,7 @@ class Login(Resource, SerializerMixin):
                 return {'error': 'incorrect password'}
         return {'error': 'User not registered'}, 400
     
+
 class CheckSession(Resource, SerializerMixin):
 
     def get(self):
@@ -181,13 +184,13 @@ class CheckSession(Resource, SerializerMixin):
             return user.to_dict(), 200
         return {}, 401
 
+
 class Logout(Resource, SerializerMixin):
 
     def delete(self):
         session['user_id'] = None
         return {'message': '204 No Content'}, 204
     
-
 
 api.add_resource(Medias, '/medias', endpoint='medias')
 api.add_resource(MediaById, '/medias/<int:id>', endpoint='medias/:id')
