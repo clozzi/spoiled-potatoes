@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
         for i in range(5):
             user = User(
-                username = fake.unique.first_name()
+                username = fake.unique.first_name(),
             )
 
             users.append(user)
