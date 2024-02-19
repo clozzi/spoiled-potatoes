@@ -35,7 +35,7 @@ function UserReviews({ user }) {
     setTimeout(() => {
         setFilteredReviews(reviews.filter((review) => review.user_id === user.id))
         setLoading(false)
-    }, 1000)
+    }, 2000)
     
     const displayReviews = filteredReviews.map((review) => (
         <div className="userReviews" key={review.id} >

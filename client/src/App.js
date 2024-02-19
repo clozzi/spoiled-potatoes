@@ -28,7 +28,7 @@ function App() {
           setLoading(false)
         })
       } else {
-        navigate('/')
+        navigate('/login')
       }
     })
   }, [])
