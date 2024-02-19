@@ -40,9 +40,9 @@ function SearchMedia({ user, medias }) {
 
     return (
         <>
-            <h1>Search for Media</h1>
+            <h3>Search for Media</h3>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="title">Media Title</label>
+                <label htmlFor="title">Media Title: </label>
                 <input 
                     id="title" 
                     name="title" 

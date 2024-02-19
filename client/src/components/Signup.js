@@ -29,7 +29,7 @@ function Signup({ onLogin }) {
 
     return (
         <div>
-            <h1>Sign Up Now!</h1>
+            <h3>Sign Up Now!</h3>
             <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
                 <label htmlFor='username'>Username</label>
                 <br />
