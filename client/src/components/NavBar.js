@@ -8,7 +8,7 @@ function NavBar({ user, onLogout }) {
         fetch("/logout", {
             method: "DELETE",
         }).then(() => {
-            onLogout(),
+            onLogout()
             navigate('/')
         })
         }
