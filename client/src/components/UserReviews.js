@@ -53,7 +53,7 @@ function UserReviews({ user }) {
                 <p>Loading</p>
             ) : (
                 <div>
-                    <h1>My Reviews</h1>
+                    <h3>My Reviews</h3>
                     {displayReviews ? (
                         <div>{displayReviews}</div>
                     ) : (

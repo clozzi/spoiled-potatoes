@@ -30,6 +30,7 @@ function CreateMedia({ onAddMedia }) {
 
     return (
         <div>
+            <h3>Contribute to the Spoiled Potatoes Community!</h3>
             <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
                 <div>
                      <p>Select a Media Type:</p>
