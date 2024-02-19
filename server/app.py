@@ -139,15 +139,18 @@ class Signup(Resource, SerializerMixin):
         
         form_data = request.get_json()
         username = form_data.get('username')
-        new_user = User(
-            username=username
-        )
+        password = form_data.get('password')
 
-        try: 
+        try:
+            new_user = User(
+                username=username
+            )
+            new_user.password_hash = password
+         
             db.session.add(new_user)
             db.session.commit()
             session['user_id'] = new_user.id
-            return {'id': new_user.id, 'username': new_user.username}, 201
+            return new_user.to_dict(), 201
         
         except IntegrityError:
             return {'error': '422 Unprocessable Entity'}, 422
