@@ -18,7 +18,7 @@ function SearchMedia({ user, medias }) {
     
     const displayResults = searchResults.map((media) => (
         <div className="medias" key={media.id} >
-            <img src={media.image_url} alt="media" width="100" height="100"/>
+            <img src={media.image_url} alt="media" width="100" height="100" className="mediaImage"/>
             <h3>{media.title}</h3>
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
