@@ -1,8 +1,6 @@
 import { useFormik } from "formik"
-import { useState } from "react"
 
-function CreateReview({ user, media }) {
-    const [loading, setLoading] = useState(false)
+function CreateReview({ user, media, onUpdateReview }) {
 
     const formik = useFormik({
         initialValues: {
@@ -12,7 +10,6 @@ function CreateReview({ user, media }) {
             media_id: "",
         },
         onSubmit: (values) => {
-            setLoading(true)
             fetch("/reviews", {
                 method: "POST",
                 headers: {
@@ -26,8 +23,8 @@ function CreateReview({ user, media }) {
                 }),
             })
             .then((r) => r.json())
-            .then((data) => {
-                setLoading(false)
+            .then((review) => {
+                onUpdateReview(review)
             })
         }
     })
@@ -79,7 +76,7 @@ function CreateReview({ user, media }) {
                     value={formik.values.media_id}
                 />
             </div>
-            <button type="submit">{loading ? <>Loading...</> : <>Submit New Review</>}</button>
+            <button type="submit">Submit New Review</button>
             </form>
         </div>
     )

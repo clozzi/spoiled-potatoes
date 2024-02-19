@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Home({ user, medias }) {
 
@@ -13,7 +13,7 @@ function Home({ user, medias }) {
             <h5>{media.media_type}</h5>
             <h5>Streaming on: {media.streaming_platform}</h5>
             {user ? (
-              <Link to={`/medias/${media.id}`}>Click for more information</Link>
+              <NavLink to={`/medias/${media.id}`} className="nav-link">Click for more information</NavLink>
             ) : (
               <p>Log in to see Reviews</p>
             )}

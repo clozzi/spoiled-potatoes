@@ -18,7 +18,6 @@ function NavBar({ user, onLogout }) {
         <nav>
             <div>
                 <NavLink to="/" className="nav-link">Home</NavLink> 
-                
                 {user ? (
                     <>
                         <p className="greeting">You are logged in as: {user.username}</p>

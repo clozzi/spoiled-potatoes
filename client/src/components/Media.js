@@ -4,13 +4,12 @@ import CreateReview from "./CreateReview"
 
 
 function Media({ user }) {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [media, setMedia] = useState({})
     const [reviews, setReviews] = useState([])
     const { id } = useParams()
 
     useEffect(() => {
-        setLoading(true)
         fetch(`/medias/${id}`)
             .then((r) => r.json())
             .then((data) => {
@@ -19,10 +18,22 @@ function Media({ user }) {
             })
     }, [id])
 
-
     function handleDisplayMedia(media) {
         setMedia(media)
         setReviews(media.reviews)
+    }
+
+    function handleUpdateReview(updatedReview) {
+        setLoading(true)
+        const updatedReviews = reviews.map((review) => {
+            if (review.id === updatedReview.id) {
+                return updatedReview
+            } else {
+                return review
+            }
+        })
+        setReviews(updatedReviews)
+        setLoading(false)
     }
 
 
@@ -36,7 +47,7 @@ function Media({ user }) {
                 <h3>{media.title}</h3>
                 <h5>{media.media_type}</h5>
                 <h5>Streaming on: {media.streaming_platform}</h5>
-                <CreateReview media={media} user={user} />
+                <CreateReview media={media} user={user} onUpdateReview={handleUpdateReview} />
                 <div>
                 {reviews.map((review) => (
                     <div key={review.id}>
