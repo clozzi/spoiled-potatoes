@@ -17,7 +17,6 @@ import DeleteReview from "./components/DeleteReview";
 function App() {
   const [user, setUser] = useState(null)
   const [medias, setMedias] = useState([])
-  // const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -41,9 +40,12 @@ function App() {
 
 
   function handleLogin(user) {
-    setUser(user)
-    // setReviews(user.reviews)
-    navigate('/')
+    if (user.username) {
+      setUser(user)
+      navigate('/')
+    } else {
+      alert("Login failed")
+    }
   }
 
   function handleLogout() {
@@ -54,10 +56,6 @@ function App() {
     setMedias([...medias, data])
     navigate('/')
   }
-
-  // function handleUpdateReviews(data) {
-  //   setReviews(data)
-  // }
 
   return (
     <main>

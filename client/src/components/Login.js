@@ -41,6 +41,7 @@ function Login({ onLogin }) {
                 .then((r) => r.json())
                 .then((data) => {
                     onLogin(data)
+                    console.log(data)
                 })
         }
     })
