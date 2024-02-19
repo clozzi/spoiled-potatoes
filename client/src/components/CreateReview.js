@@ -1,6 +1,6 @@
 import { useFormik } from "formik"
 
-function CreateReview({ user, media, onUpdateReview }) {
+function CreateReview({ user, media, onCreateReview }) {
 
     const formik = useFormik({
         initialValues: {
@@ -24,7 +24,9 @@ function CreateReview({ user, media, onUpdateReview }) {
             })
             .then((r) => r.json())
             .then((review) => {
-                onUpdateReview(review)
+                onCreateReview(review)
+                formik.values.rating = ""
+                formik.values.comment = ""
             })
         }
     })
@@ -32,7 +34,7 @@ function CreateReview({ user, media, onUpdateReview }) {
     return (
         <div className="createReview">
             <h3>Create new review</h3>
-            <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
+            <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }} id="newReview">
             <div>
                 <label>Rating (between 0 and 10):</label>
                 <input 
@@ -56,20 +58,20 @@ function CreateReview({ user, media, onUpdateReview }) {
                     value={formik.values.comment}
                 />
             </div>
-            <div>
+            <div className="hiddenInput">
                 <label>User ID:</label>
                 <input 
-                    type="number" 
+                    type="hidden" 
                     id="user_id"
                     name="user_id"
                     readOnly
                     value={formik.values.user_id}
                 />
             </div>
-            <div>
+            <div className="hiddenInput">
                 <label>Media ID:</label>
                 <input 
-                    type="number" 
+                    type="hidden" 
                     id="media_id"
                     name="media_id"
                     readOnly

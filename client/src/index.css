@@ -79,3 +79,7 @@ code {
 .createReview {
   border-style: dashed;
 }
+
+.hiddenInput {
+  display: none
+}

@@ -13,7 +13,6 @@ function UserReviews({ user }) {
             .then((r) => r.json())
             .then((reviews) => {
                 setReviews(reviews)
-                // setLoading(false)
             })
     }, [])
 

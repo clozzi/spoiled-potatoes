@@ -23,16 +23,9 @@ function Media({ user }) {
         setReviews(media.reviews)
     }
 
-    function handleUpdateReview(updatedReview) {
+    function handleCreateReview(newReview) {
         setLoading(true)
-        const updatedReviews = reviews.map((review) => {
-            if (review.id === updatedReview.id) {
-                return updatedReview
-            } else {
-                return review
-            }
-        })
-        setReviews(updatedReviews)
+        setReviews([...reviews, newReview])
         setLoading(false)
     }
 
@@ -47,7 +40,7 @@ function Media({ user }) {
                 <h3>{media.title}</h3>
                 <h5>{media.media_type}</h5>
                 <h5>Streaming on: {media.streaming_platform}</h5>
-                <CreateReview media={media} user={user} onUpdateReview={handleUpdateReview} />
+                <CreateReview media={media} user={user} onCreateReview={handleCreateReview} />
                 <div>
                 {reviews.map((review) => (
                     <div key={review.id}>
