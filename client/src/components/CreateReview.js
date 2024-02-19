@@ -27,7 +27,6 @@ function CreateReview({ user, media }) {
             })
             .then((r) => r.json())
             .then((data) => {
-                console.log(data)
                 setLoading(false)
             })
         }
