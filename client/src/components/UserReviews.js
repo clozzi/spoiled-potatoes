@@ -5,20 +5,19 @@ import DeleteReview from "./DeleteReview"
 
 function UserReviews({ user }) {
     const [reviews, setReviews] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [filteredReviews, setFilteredReviews] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        setLoading(true)
         fetch("/reviews")
             .then((r) => r.json())
             .then((reviews) => {
                 setReviews(reviews)
-                setLoading(false)
+                // setLoading(false)
             })
     }, [])
 
     function handleUpdateReview(updatedReview) {
-        setLoading(true)
         const updatedReviews = reviews.map((review) => {
             if (review.id === updatedReview.id) {
                 return updatedReview
@@ -31,13 +30,16 @@ function UserReviews({ user }) {
     }
 
     function handleDeleteReview(id) {
-        setLoading(true)
         const updatedReviews = reviews.filter((review) => review.id !== id)
         setReviews(updatedReviews)
         setLoading(false)
     }
 
-    const filteredReviews = reviews.filter((review) => review.user_id === user.id)
+    setTimeout(() => {
+        setFilteredReviews(reviews.filter((review) => review.user_id === user.id))
+        setLoading(false)
+    }, 1000)
+    
 
     const displayReviews = filteredReviews.map((review) => (
         <div className="userReviews" key={review.id} >

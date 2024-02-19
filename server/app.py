@@ -171,11 +171,6 @@ class CheckSession(Resource, SerializerMixin):
             user = User.query.filter_by(id=id).first()
             return user.to_dict(), 200
         return {}, 401
-        # user = User.query.filter(User.id == session.get('user_id')).first()
-        # if user:
-        #     return user.to_dict()
-        # else:
-        #     return {'message': '401: Not Authorized'}, 401
 
 class Logout(Resource, SerializerMixin):
 
