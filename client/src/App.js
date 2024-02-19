@@ -27,6 +27,8 @@ function App() {
           setUser(data)
           setLoading(false)
         })
+      } else {
+        navigate('/')
       }
     })
   }, [])
