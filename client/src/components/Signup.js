@@ -7,11 +7,15 @@ function Signup({ onLogin }) {
 
 
     const formSchema = yup.object().shape({
-        username: yup.string().required("Must enter username").max(20)
+        username: yup.string().required("Must enter username").max(20),
+        password: yup.string().required("Password required"),
     })
 
     const formik = useFormik({
-        initialValues: {username: ""},
+        initialValues: {
+            username: "",
+            password: "",
+        },
         validationSchema: formSchema,
         onSubmit: (values) => {
             fetch("/signup", {
@@ -44,6 +48,16 @@ function Signup({ onLogin }) {
                     value={formik.values.username}
                 />
                 <p style={{ color: "red" }}>{formik.errors.username}</p>
+                <label htmlFor='password'>Password</label>
+                <br />
+                <input
+                    id='password'
+                    name='password'
+                    placeholder='Enter Password...'
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                />
+                <p style={{ color: "red" }}>{formik.errors.password}</p>
                 <button type="submit">Submit</button>
             </form>
         </div>
