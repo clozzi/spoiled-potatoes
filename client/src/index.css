@@ -15,7 +15,7 @@ code {
 .medias {
   border-style: groove;
   padding: 15px;
-  display: inline-grid;
+  display: inline-block;
 }
 
 .userReviews {
